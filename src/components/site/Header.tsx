@@ -63,6 +63,15 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
                       <Link
                         key={sub.label}
                         to={sub.to}
+                        hash={sub.hash}
+                        onClick={() => {
+                          if (sub.hash && window.location.pathname === sub.to) {
+                            const el = document.getElementById(sub.hash);
+                            if (el) {
+                              el.scrollIntoView({ behavior: "smooth" });
+                            }
+                          }
+                        }}
                         className="block rounded-lg px-3 py-2 text-sm text-popover-foreground transition hover:bg-secondary"
                       >
                         {sub.label}
@@ -122,7 +131,18 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
                       <Link
                         key={sub.label}
                         to={sub.to}
-                        onClick={() => setOpen(false)}
+                        hash={sub.hash}
+                        onClick={() => {
+                          setOpen(false);
+                          if (sub.hash && window.location.pathname === sub.to) {
+                            setTimeout(() => {
+                              const el = document.getElementById(sub.hash);
+                              if (el) {
+                                el.scrollIntoView({ behavior: "smooth" });
+                              }
+                            }, 50);
+                          }
+                        }}
                         className="block rounded-md px-3 py-2.5 text-sm text-muted-foreground"
                       >
                         {sub.label}

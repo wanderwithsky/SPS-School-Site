@@ -59,15 +59,13 @@ export const NAV: {
     items: [
       { label: "Our School", to: "/about" },
       { label: "Vision & Mission", to: "/", hash: "welcome" },
-      { label: "Why Shandilya", to: "/", hash: "why" },
-      { label: "Achievements", to: "/", hash: "achievements" },
+      { label: "Achievements", to: "/achievements" },
     ],
   },
   {
     label: "Academics",
     items: [
       { label: "Academic Journey", to: "/", hash: "journey" },
-      { label: "Senior Secondary", to: "/", hash: "journey" },
       { label: "Campus & Facilities", to: "/", hash: "facilities" },
       { label: "Fees Structure", to: "/fee-structure" },
     ],
@@ -76,15 +74,13 @@ export const NAV: {
     label: "Admissions",
     items: [
       { label: "Admission Process", to: "/admissions/apply" },
-      { label: "Documents Required", to: "/admissions/apply" },
       { label: "FAQs", to: "/", hash: "faq" },
       { label: "Apply Now", to: "/admissions/apply" },
     ],
   },
   { 
     label: "Teachers", 
-    to: "/about", 
-    hash: "leadership" 
+    to: "/teachers", 
   },
   { label: "Contact", to: "/contact" },
 ];

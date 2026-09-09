@@ -25,8 +25,12 @@ export function AdmissionPopup() {
     return () => clearTimeout(timer);
   }, [pathname]);
 
-  // Completely prevent rendering on any route other than "/"
-  if (pathname !== "/") return null;
+  // Handle custom event from the TopRibbon
+  useEffect(() => {
+    const handleOpen = () => setOpen(true);
+    window.addEventListener("open-admission-popup", handleOpen);
+    return () => window.removeEventListener("open-admission-popup", handleOpen);
+  }, []);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

@@ -632,31 +632,31 @@ function Achievements() {
 const LEADERSHIP = [
   {
     name: "Er. Arvind Kr. Tiwari",
-    role: "Manager",
+    role: "Managing Director",
     note: "Guides the school's direction and long-term development.",
     photo: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823593/915c7797-7788-4c3f-8708-a47a47eed5f9.jpg",
   },
   {
     name: "Ms. Nutan Tiwari",
-    role: "Administrative Director",
+    role: "Assistant Director",
     note: "Oversees school administration and operations.",
     photo: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823626/8993cc89-14bc-4059-b66b-cf84a006bd89.jpg",
   },
   {
     name: "Mr. Suryansh Tiwari",
-    role: "Administrative Officer",
+    role: "Administrative Director",
     note: "Supports administrative functions across the campus.",
     photo: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823641/92e32fc1-34b8-4e71-b8c2-d476240e36f6.jpg",
   },
   {
     name: "Ms. Reena Singh",
-    role: "Academic Coordinator",
+    role: "Principal",
     note: "Coordinates curriculum delivery and classroom planning.",
     photo: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823644/3ac54d0a-6d4a-4a91-b3e3-46ca8b45139f.jpg",
   },
   {
     name: "Ms. Gita Srivastava",
-    role: "Office Incharge — Accountant",
+    role: "Accounts Administrator",
     note: "Manages the school office and accounts.",
     photo: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823652/ffbb8f15-c287-4264-ba4c-d411ca1fcda0.jpg",
   },
@@ -774,7 +774,7 @@ function ManagerMessage() {
             Er. Arvind Kr. Tiwari
           </p>
           <p className="mt-1 text-[11px] font-semibold tracking-[0.22em] text-primary uppercase">
-            Manager
+            Managing Director
           </p>
         </motion.div>
       </div>

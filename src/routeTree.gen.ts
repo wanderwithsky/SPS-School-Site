@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AchievementsRouteImport } from './routes/achievements'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FeeStructureRouteImport } from './routes/fee-structure'
+import { Route as TeachersRouteImport } from './routes/teachers'
 import { Route as AdmissionsApplyRouteImport } from './routes/admissions.apply'
 
 const IndexRoute = IndexRouteImport.update({
@@ -25,6 +27,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AchievementsRoute = AchievementsRouteImport.update({
+  id: '/achievements',
+  path: '/achievements',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -33,6 +40,11 @@ const ContactRoute = ContactRouteImport.update({
 const FeeStructureRoute = FeeStructureRouteImport.update({
   id: '/fee-structure',
   path: '/fee-structure',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeachersRoute = TeachersRouteImport.update({
+  id: '/teachers',
+  path: '/teachers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdmissionsApplyRoute = AdmissionsApplyRouteImport.update({
@@ -44,45 +56,68 @@ const AdmissionsApplyRoute = AdmissionsApplyRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/achievements': typeof AchievementsRoute
   '/contact': typeof ContactRoute
   '/fee-structure': typeof FeeStructureRoute
+  '/teachers': typeof TeachersRoute
   '/admissions/apply': typeof AdmissionsApplyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/achievements': typeof AchievementsRoute
   '/contact': typeof ContactRoute
   '/fee-structure': typeof FeeStructureRoute
+  '/teachers': typeof TeachersRoute
   '/admissions/apply': typeof AdmissionsApplyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/achievements': typeof AchievementsRoute
   '/contact': typeof ContactRoute
   '/fee-structure': typeof FeeStructureRoute
+  '/teachers': typeof TeachersRoute
   '/admissions/apply': typeof AdmissionsApplyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/contact' | '/fee-structure' | '/admissions/apply'
+    | '/'
+    | '/about'
+    | '/achievements'
+    | '/contact'
+    | '/fee-structure'
+    | '/teachers'
+    | '/admissions/apply'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/fee-structure' | '/admissions/apply'
+  to:
+    | '/'
+    | '/about'
+    | '/achievements'
+    | '/contact'
+    | '/fee-structure'
+    | '/teachers'
+    | '/admissions/apply'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/achievements'
     | '/contact'
     | '/fee-structure'
+    | '/teachers'
     | '/admissions/apply'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AchievementsRoute: typeof AchievementsRoute
   ContactRoute: typeof ContactRoute
   FeeStructureRoute: typeof FeeStructureRoute
+  TeachersRoute: typeof TeachersRoute
   AdmissionsApplyRoute: typeof AdmissionsApplyRoute
 }
 
@@ -102,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/achievements': {
+      id: '/achievements'
+      path: '/achievements'
+      fullPath: '/achievements'
+      preLoaderRoute: typeof AchievementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -114,6 +156,13 @@ declare module '@tanstack/react-router' {
       path: '/fee-structure'
       fullPath: '/fee-structure'
       preLoaderRoute: typeof FeeStructureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teachers': {
+      id: '/teachers'
+      path: '/teachers'
+      fullPath: '/teachers'
+      preLoaderRoute: typeof TeachersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admissions/apply': {
@@ -129,8 +178,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AchievementsRoute: AchievementsRoute,
   ContactRoute: ContactRoute,
   FeeStructureRoute: FeeStructureRoute,
+  TeachersRoute: TeachersRoute,
   AdmissionsApplyRoute: AdmissionsApplyRoute,
 }
 export const routeTree = rootRouteImport

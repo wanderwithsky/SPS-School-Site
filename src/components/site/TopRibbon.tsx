@@ -48,12 +48,14 @@ export function TopRibbon() {
           Contact
         </Link>
 
-        <a
-          href="https://53525a2c-f0af-44ac-a74c-262d859480a4.lovableproject.com/admissions/apply"
-          className="admission-pulse ml-auto shrink-0 whitespace-nowrap pl-4 text-[12.5px] font-semibold tracking-[0.1em] uppercase transition-transform duration-300 ease-out hover:scale-[1.03] hover:brightness-110"
+        <button
+          type="button"
+          aria-label="Open Admissions 2026-27"
+          onClick={() => window.dispatchEvent(new Event("open-admission-popup"))}
+          className="admission-pulse ml-auto shrink-0 whitespace-nowrap pl-4 text-[12.5px] font-semibold tracking-[0.1em] uppercase transition-transform duration-300 ease-out hover:scale-[1.03] hover:brightness-110 focus:outline-none"
         >
           {RIBBON.admissionLabel}
-        </a>
+        </button>
       </div>
     </div>
   );
