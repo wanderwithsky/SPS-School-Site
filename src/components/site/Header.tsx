@@ -63,7 +63,7 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
                       <Link
                         key={sub.label}
                         to={sub.to}
-                        hash={sub.hash}
+                        {...(sub.hash ? { hash: sub.hash } : {})}
                         onClick={() => {
                           if (sub.hash && window.location.pathname === sub.to) {
                             const el = document.getElementById(sub.hash);
@@ -131,12 +131,13 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
                       <Link
                         key={sub.label}
                         to={sub.to}
-                        hash={sub.hash}
+                        {...(sub.hash ? { hash: sub.hash } : {})}
                         onClick={() => {
                           setOpen(false);
                           if (sub.hash && window.location.pathname === sub.to) {
+                            const targetHash = sub.hash;
                             setTimeout(() => {
-                              const el = document.getElementById(sub.hash);
+                              const el = document.getElementById(targetHash);
                               if (el) {
                                 el.scrollIntoView({ behavior: "smooth" });
                               }

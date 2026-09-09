@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone, MessageCircle, Navigation } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { SCHOOL, telHref, waHref, directionsHref, mapEmbedSrc } from "@/lib/school";
+import { useSiteSettings } from "@/hooks/useCMS";
 
 const TITLE = "Contact — Shandilya Public School, Samne Ghat, Varanasi";
 const DESC =
@@ -25,6 +26,17 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
+  const { data: settings } = useSiteSettings();
+  const phones = settings?.phones?.length ? settings.phones : SCHOOL.phones;
+  const email = settings?.email || SCHOOL.email;
+  const addressLines = settings?.address_line1
+    ? [
+        settings.address_line1,
+        settings.address_line2,
+        `${settings.city || "Varanasi"}, ${settings.state || "Uttar Pradesh"} - ${settings.pincode || ""}`,
+      ].filter(Boolean)
+    : SCHOOL.addressLines;
+
   return (
     <SiteLayout>
       <section className="bg-secondary pt-28 pb-14 sm:pt-32">
@@ -50,7 +62,7 @@ function ContactPage() {
                 <div>
                   <h2 className="text-sm font-bold text-foreground">Address</h2>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    {SCHOOL.addressLines.map((l) => (
+                    {addressLines.map((l) => (
                       <span key={l} className="block">
                         {l}
                       </span>
@@ -62,7 +74,7 @@ function ContactPage() {
                 <Phone className="mt-1 size-5 shrink-0 text-primary" aria-hidden="true" />
                 <div>
                   <h2 className="text-sm font-bold text-foreground">Phone</h2>
-                  {SCHOOL.phones.map((p) => (
+                  {phones.map((p) => (
                     <a
                       key={p}
                       href={telHref(p)}
@@ -78,10 +90,10 @@ function ContactPage() {
                 <div>
                   <h2 className="text-sm font-bold text-foreground">Email</h2>
                   <a
-                    href={`mailto:${SCHOOL.email}`}
+                    href={`mailto:${email}`}
                     className="mt-1 block break-all text-sm text-muted-foreground hover:text-foreground"
                   >
-                    {SCHOOL.email}
+                    {email}
                   </a>
                 </div>
               </li>
@@ -89,7 +101,7 @@ function ContactPage() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href={telHref(SCHOOL.phones[0])}
+                href={telHref(phones[0])}
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
               >
                 <Phone className="size-4" aria-hidden="true" /> Call

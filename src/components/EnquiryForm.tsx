@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { CheckCircle2, Loader2, Sparkles } from "lucide-react";
 import { z } from "zod";
-import { supabase } from "@/integrations/supabase/client";
 import { CLASS_OPTIONS } from "@/lib/school";
+import { useAdmissionEnquiriesCMS } from "@/hooks/useCMS";
 
 const schema = z.object({
   student_name: z.string().trim().min(2, "Please enter the student's name").max(120),
@@ -13,7 +13,13 @@ const schema = z.object({
     .string()
     .trim()
     .regex(/^[0-9+\s-]{10,15}$/, "Please enter a valid mobile number"),
-  email: z.string().trim().email("Please enter a valid email").max(255).optional().or(z.literal("")),
+  email: z
+    .string()
+    .trim()
+    .email("Please enter a valid email")
+    .max(255)
+    .optional()
+    .or(z.literal("")),
   current_school: z.string().trim().max(160).optional().or(z.literal("")),
   locality: z.string().trim().max(160).optional().or(z.literal("")),
   message: z.string().trim().max(1000).optional().or(z.literal("")),
@@ -23,7 +29,13 @@ const field =
   "mt-1.5 w-full rounded-lg border border-input bg-card px-3.5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-ring focus:outline-none";
 const labelCls = "block text-xs font-semibold tracking-wide text-foreground uppercase";
 
-export function EnquiryForm() {
+interface EnquiryFormProps {
+  onSuccess?: () => void;
+  compact?: boolean;
+}
+
+export function EnquiryForm({ onSuccess, compact = false }: EnquiryFormProps) {
+  const { createEnquiry } = useAdmissionEnquiriesCMS();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -31,7 +43,8 @@ export function EnquiryForm() {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrors({});
-    const raw = Object.fromEntries(new FormData(e.currentTarget).entries());
+    const formElement = e.currentTarget;
+    const raw = Object.fromEntries(new FormData(formElement).entries());
     const parsed = schema.safeParse(raw);
     if (!parsed.success) {
       const next: Record<string, string> = {};
@@ -42,37 +55,56 @@ export function EnquiryForm() {
 
     setSubmitting(true);
     const v = parsed.data;
-    const { error } = await supabase.from("admission_enquiries").insert({
-      student_name: v.student_name,
-      date_of_birth: v.date_of_birth ? v.date_of_birth : null,
-      class_applying_for: v.class_applying_for,
-      parent_name: v.parent_name,
-      mobile: v.mobile,
-      email: v.email || null,
-      current_school: v.current_school || null,
-      locality: v.locality || null,
-      message: v.message || null,
-    });
-    setSubmitting(false);
 
-    if (error) {
-      setErrors({ form: "We couldn't submit your enquiry just now. Please call us instead." });
-      return;
+    try {
+      await createEnquiry({
+        student_name: v.student_name,
+        date_of_birth: v.date_of_birth || undefined,
+        class_applying_for: v.class_applying_for,
+        parent_name: v.parent_name,
+        mobile: v.mobile,
+        email: v.email || undefined,
+        current_school: v.current_school || undefined,
+        locality: v.locality || undefined,
+        message: v.message || undefined,
+      });
+
+      setDone(true);
+      if (onSuccess) {
+        onSuccess();
+      }
+    } catch (err) {
+      console.error("Submission error:", err);
+      setErrors({
+        form: "We couldn't submit your enquiry just now. Please try again or call the school office.",
+      });
+    } finally {
+      setSubmitting(false);
     }
-    setDone(true);
   }
 
   if (done) {
     return (
-      <div className="rounded-2xl border border-border bg-card p-8 text-center sm:p-12">
-        <CheckCircle2 className="mx-auto size-12 text-primary" aria-hidden="true" />
-        <h2 className="mt-5 font-serif text-2xl font-semibold text-foreground">
-          Thank you — your enquiry has been received
+      <div className="rounded-2xl border border-border bg-card p-6 text-center sm:p-10 shadow-sm animate-in fade-in zoom-in-95 duration-300">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <CheckCircle2 className="size-8" aria-hidden="true" />
+        </div>
+        <h2 className="mt-4 font-serif text-2xl font-semibold text-foreground">
+          Enquiry Received Successfully!
         </h2>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-          Our admissions team will contact you shortly on the number you shared. If you would like
-          to speak with us sooner, please call the school office during working hours.
+        <p className="mx-auto mt-2.5 max-w-md text-sm leading-relaxed text-muted-foreground">
+          Our admissions team has recorded your details and will contact you promptly. You can also
+          view and manage this lead in real-time in the admin portal.
         </p>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <button
+            type="button"
+            onClick={() => setDone(false)}
+            className="rounded-full bg-secondary px-5 py-2.5 text-xs font-semibold text-foreground hover:bg-secondary/80 transition-colors"
+          >
+            Submit Another Enquiry
+          </button>
+        </div>
       </div>
     );
   }

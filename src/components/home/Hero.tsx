@@ -98,9 +98,29 @@ const SLIDES: Slide[] = [
   },
 ];
 
+import { usePageSection } from "@/hooks/useCMS";
+import { DEFAULT_HERO_SLIDES, HeroSlideItem } from "@/lib/cms-types";
+
 const HOLD_MS = 3000;
 
 export function Hero() {
+  const { data: dynamicSlides } = usePageSection("home", "hero_slides", DEFAULT_HERO_SLIDES);
+  const slides: Slide[] = (
+    dynamicSlides && dynamicSlides.length > 0 ? dynamicSlides : DEFAULT_HERO_SLIDES
+  ).map((s: HeroSlideItem, idx: number) => ({
+    image: s.image || SLIDES[idx % SLIDES.length]?.image || slide0,
+    alt: s.alt || s.title,
+    fit: s.fit || "cover",
+    eyebrow: s.eyebrow,
+    title: s.title,
+    description: s.description,
+    cta: {
+      label: s.cta_label || "Explore our school",
+      ...(s.cta_link ? { to: s.cta_link } : {}),
+      ...(s.cta_hash ? { hash: s.cta_hash } : {}),
+    },
+  }));
+
   const reduced = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
@@ -112,9 +132,17 @@ export function Hero() {
     setIsTouch(window.matchMedia("(hover: none)").matches);
   }, []);
 
-  const go = useCallback((dir: number) => {
-    setIndex((i) => (i + dir + SLIDES.length) % SLIDES.length);
-  }, []);
+  const go = useCallback(
+    (dir: number) => {
+      setIndex((i) => {
+        const next = i + dir;
+        if (next < 0) return slides.length - 1;
+        if (next >= slides.length) return 0;
+        return next;
+      });
+    },
+    [slides.length],
+  );
 
   const hold = useCallback(() => {
     setPaused(true);

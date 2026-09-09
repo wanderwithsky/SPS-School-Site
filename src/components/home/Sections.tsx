@@ -33,6 +33,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { SCHOOL, telHref, waHref, directionsHref, mapEmbedSrc } from "@/lib/school";
+import { useSiteSettings, usePageSection, useNoticesCMS, useAchievementsCMS } from "@/hooks/useCMS";
+import {
+  DEFAULT_WELCOME_CONTENT,
+  DEFAULT_WHY_US_ITEMS,
+  DEFAULT_FAQS,
+  DEFAULT_TESTIMONIALS,
+} from "@/lib/cms-types";
 
 const fadeUp = {
   initial: { opacity: 0, y: 22 },
@@ -116,7 +123,6 @@ export function TrustStrip() {
   );
 }
 
-
 /* ---------------- Section 3: welcome ---------------- */
 
 function ManagerPhoto() {
@@ -177,6 +183,11 @@ function ManagerPhoto() {
 }
 
 export function Welcome() {
+  const { data: welcomeData } = usePageSection("home", "welcome", DEFAULT_WELCOME_CONTENT);
+  const { data: settings } = useSiteSettings();
+  const motto = settings?.motto || SCHOOL.motto;
+  const schoolName = settings?.school_name || SCHOOL.name;
+
   return (
     <section id="welcome" className="scroll-mt-20 bg-background py-20 sm:py-28">
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 sm:px-6 lg:grid-cols-[1fr_1fr] lg:gap-16">
@@ -185,26 +196,19 @@ export function Welcome() {
           <div className="flex items-center gap-3">
             <span className="h-px w-8 bg-accent" aria-hidden="true" />
             <p className="text-[11px] font-semibold tracking-[0.3em] text-primary uppercase">
-              Welcome to Shandilya Public School
+              {welcomeData.eyebrow || `Welcome to ${schoolName}`}
             </p>
           </div>
           <h2 className="mt-5 font-serif font-semibold leading-[1.08] text-foreground text-[34px] sm:text-[48px] lg:text-[58px]">
-            Education Beyond
-            <br />
-            the Classroom
+            {welcomeData.title || "Education Beyond the Classroom"}
           </h2>
           <p className="mt-6 max-w-xl text-[16px] leading-[1.8] text-muted-foreground sm:text-[17px]">
-            Learning at Shandilya Public School goes beyond textbooks. Alongside a strong academic
-            foundation, children grow through creative expression, sport, conversation and everyday
-            responsibility.
-          </p>
-          <p className="mt-4 max-w-xl text-[16px] leading-[1.8] text-muted-foreground sm:text-[17px]">
-            Our aim is simple: that every child leaves school confident in what they know, curious
-            about what they do not, and kind in how they treat others.
+            {welcomeData.quote ||
+              "Learning at Shandilya Public School goes beyond textbooks. Alongside a strong academic foundation, children grow through creative expression, sport, conversation and everyday responsibility."}
           </p>
           <p className="mt-7 font-serif text-lg italic text-foreground sm:text-xl">
             <span className="text-accent">“</span>
-            {SCHOOL.motto}
+            {motto}
             <span className="text-accent">”</span>
           </p>
           <Link
@@ -280,11 +284,31 @@ export function WhyShandilya() {
 /* ---------------- Section 5: academic journey ---------------- */
 
 const JOURNEY = [
-  { s: "Pre-Primary", d: "Play • Explore • Learn", img: "https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&q=80&w=1200" },
-  { s: "Primary", d: "Build strong foundations", img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=1200" },
-  { s: "Middle School", d: "Discover interests", img: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=1200" },
-  { s: "Secondary", d: "Prepare for possibilities", img: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=1200" },
-  { s: "Senior Secondary", d: "Choose your path — Science, Commerce, Humanities", img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=1200" },
+  {
+    s: "Pre-Primary",
+    d: "Play • Explore • Learn",
+    img: "https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&q=80&w=1200",
+  },
+  {
+    s: "Primary",
+    d: "Build strong foundations",
+    img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=1200",
+  },
+  {
+    s: "Middle School",
+    d: "Discover interests",
+    img: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=1200",
+  },
+  {
+    s: "Secondary",
+    d: "Prepare for possibilities",
+    img: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=1200",
+  },
+  {
+    s: "Senior Secondary",
+    d: "Choose your path — Science, Commerce, Humanities",
+    img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=1200",
+  },
 ];
 
 function JourneyItem({
@@ -293,7 +317,7 @@ function JourneyItem({
   progress,
   total,
 }: {
-  j: typeof JOURNEY[number];
+  j: (typeof JOURNEY)[number];
   idx: number;
   progress: MotionValue<number>;
   total: number;
@@ -326,7 +350,7 @@ function JourneyItem({
       <div className="group relative mx-auto w-full max-w-7xl grid grid-cols-1 gap-8 items-center lg:grid-cols-2 lg:gap-16 pointer-events-auto">
         <div className="order-2 lg:order-1 relative pl-8 sm:pl-12 lg:pl-16">
           <span className="absolute left-[0px] top-[14px] size-3.5 rounded-full border-[2.5px] border-white/20 bg-foreground transition-all duration-300 group-hover:scale-[1.4] group-hover:border-[#D4A94F] group-hover:bg-[#D4A94F] group-hover:shadow-[0_0_14px_rgba(212,169,79,0.5)] sm:left-[2px] sm:top-[20px]" />
-          
+
           <h3 className="font-serif text-3xl font-bold text-white transition-all duration-300 group-hover:text-[#D4A94F] group-hover:translate-x-1 group-hover:[text-shadow:0_0_14px_rgba(212,169,79,0.30)] sm:text-5xl">
             {j.s}
           </h3>
@@ -336,7 +360,12 @@ function JourneyItem({
         </div>
 
         <div className="order-1 lg:order-2 overflow-hidden rounded-2xl border border-white/10 shadow-2xl transition-all duration-300 group-hover:scale-[1.02] group-hover:border-white/20 group-hover:shadow-[#D4A94F]/10">
-          <img src={j.img} alt={j.s} loading="lazy" className="w-full aspect-[4/3] sm:aspect-video object-cover" />
+          <img
+            src={j.img}
+            alt={j.s}
+            loading="lazy"
+            className="w-full aspect-[4/3] sm:aspect-video object-cover"
+          />
         </div>
       </div>
     </motion.div>
@@ -357,7 +386,6 @@ export function Journey() {
   return (
     <section ref={containerRef} id="journey" className="relative bg-foreground h-[600vh]">
       <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden py-16 sm:py-24">
-        
         <motion.div
           style={{ opacity: headerOpacity, y: headerY, scale: headerScale }}
           className="absolute inset-x-0 top-24 sm:top-32 z-10 mx-auto w-full max-w-7xl px-5 text-center sm:px-6 lg:px-8 lg:text-left"
@@ -372,9 +400,15 @@ export function Journey() {
 
         <div className="relative mt-8 flex-1 w-full max-w-7xl mx-auto flex items-center lg:mt-0">
           <div className="absolute left-[20px] top-[10%] bottom-[10%] w-[1.5px] bg-white/10 rounded-full sm:left-[26px] lg:left-[32px]" />
-          
+
           {JOURNEY.map((j, idx) => (
-            <JourneyItem key={j.s} j={j} idx={idx} progress={scrollYProgress} total={JOURNEY.length} />
+            <JourneyItem
+              key={j.s}
+              j={j}
+              idx={idx}
+              progress={scrollYProgress}
+              total={JOURNEY.length}
+            />
           ))}
         </div>
       </div>
@@ -399,12 +433,11 @@ const FACILITIES = [
 
 export function Facilities() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeFacility = FACILITIES[activeIndex];
+  const activeFacility = FACILITIES[activeIndex] ?? FACILITIES[0]!;
 
   return (
     <section id="facilities" className="scroll-mt-20 bg-background py-20 sm:py-28 overflow-hidden">
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
-        
         {/* Scroll Reveal for Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -420,9 +453,8 @@ export function Facilities() {
         </motion.div>
 
         <div className="mt-16 flex flex-col lg:flex-row gap-12 lg:gap-20">
-          
           {/* Main Campus Image (Left/Center) */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, clipPath: "inset(0 12% 0 0)" }}
             whileInView={{ opacity: 1, clipPath: "inset(0 0 0 0)" }}
             viewport={{ once: true, margin: "-100px" }}
@@ -454,9 +486,7 @@ export function Facilities() {
                     <span className="text-xs font-bold tracking-wider text-[#D4A94F] uppercase">
                       {activeFacility.t}
                     </span>
-                    <span className="mt-1 text-sm text-white/90">
-                      {activeFacility.desc}
-                    </span>
+                    <span className="mt-1 text-sm text-white/90">{activeFacility.desc}</span>
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -471,7 +501,7 @@ export function Facilities() {
               viewport={{ once: true, margin: "-100px" }}
               variants={{
                 hidden: {},
-                show: { transition: { staggerChildren: 0.05, delayChildren: 0.5 } }
+                show: { transition: { staggerChildren: 0.05, delayChildren: 0.5 } },
               }}
               className="relative flex flex-col gap-1"
             >
@@ -480,41 +510,57 @@ export function Facilities() {
 
               {FACILITIES.map((f, idx) => {
                 const isActive = activeIndex === idx;
-                const num = String(idx + 1).padStart(2, '0');
+                const num = String(idx + 1).padStart(2, "0");
 
                 return (
                   <motion.button
                     key={f.t}
                     variants={{
                       hidden: { opacity: 0, x: -10 },
-                      show: { opacity: 1, x: 0 }
+                      show: { opacity: 1, x: 0 },
                     }}
                     onMouseEnter={() => setActiveIndex(idx)}
                     onFocus={() => setActiveIndex(idx)}
                     className="group relative flex w-full items-center gap-4 rounded-xl px-4 py-3 text-left transition-all duration-300 focus:outline-none"
                   >
                     {/* Active State Background/Border */}
-                    <div className={`absolute inset-0 rounded-xl border transition-all duration-300 ${
-                      isActive ? "border-[#D4A94F]/30 bg-[#D4A94F]/5 shadow-[0_0_15px_rgba(212,169,79,0.05)]" : "border-transparent hover:bg-muted/50"
-                    }`} />
-                    
+                    <div
+                      className={`absolute inset-0 rounded-xl border transition-all duration-300 ${
+                        isActive
+                          ? "border-[#D4A94F]/30 bg-[#D4A94F]/5 shadow-[0_0_15px_rgba(212,169,79,0.05)]"
+                          : "border-transparent hover:bg-muted/50"
+                      }`}
+                    />
+
                     {/* Active Line Indicator */}
-                    <div className={`absolute left-0 h-1/2 w-1 rounded-r-full bg-[#D4A94F] transition-all duration-300 ${
-                      isActive ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"
-                    }`} />
+                    <div
+                      className={`absolute left-0 h-1/2 w-1 rounded-r-full bg-[#D4A94F] transition-all duration-300 ${
+                        isActive ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"
+                      }`}
+                    />
 
                     {/* Number & Icon */}
-                    <div className={`relative z-10 flex shrink-0 items-center gap-4 transition-colors duration-300 ${
-                      isActive ? "text-[#D4A94F]" : "text-muted-foreground group-hover:text-foreground"
-                    }`}>
-                      <span className="w-5 text-sm font-medium opacity-60 font-mono hidden sm:block">{num}</span>
+                    <div
+                      className={`relative z-10 flex shrink-0 items-center gap-4 transition-colors duration-300 ${
+                        isActive
+                          ? "text-[#D4A94F]"
+                          : "text-muted-foreground group-hover:text-foreground"
+                      }`}
+                    >
+                      <span className="w-5 text-sm font-medium opacity-60 font-mono hidden sm:block">
+                        {num}
+                      </span>
                       <f.i className="size-5" strokeWidth={isActive ? 2.5 : 2} />
                     </div>
 
                     {/* Text */}
-                    <span className={`relative z-10 text-base font-medium transition-all duration-300 ${
-                      isActive ? "translate-x-2 text-[#D4A94F]" : "text-foreground group-hover:translate-x-1"
-                    }`}>
+                    <span
+                      className={`relative z-10 text-base font-medium transition-all duration-300 ${
+                        isActive
+                          ? "translate-x-2 text-[#D4A94F]"
+                          : "text-foreground group-hover:translate-x-1"
+                      }`}
+                    >
                       {f.t}
                     </span>
                   </motion.button>
@@ -522,7 +568,6 @@ export function Facilities() {
               })}
             </motion.div>
           </div>
-
         </div>
       </div>
     </section>
@@ -544,10 +589,7 @@ export function LifeAtSchool() {
   return (
     <section id="life" className="scroll-mt-20 bg-secondary py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
-        <SectionHeading
-          eyebrow="Life at Shandilya"
-          title="A school day is more than lessons"
-        />
+        <SectionHeading eyebrow="Life at Shandilya" title="A school day is more than lessons" />
       </div>
       <div className="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-6 sm:px-6">
         {LIFE.map((l) => (
@@ -555,12 +597,7 @@ export function LifeAtSchool() {
             key={l.t}
             className="w-[74vw] shrink-0 snap-start overflow-hidden rounded-3xl border border-border bg-card sm:w-[38vw] lg:w-[26vw]"
           >
-            <img
-              src={l.img}
-              alt={l.t}
-              loading="lazy"
-              className="aspect-3/4 w-full object-cover"
-            />
+            <img src={l.img} alt={l.t} loading="lazy" className="aspect-3/4 w-full object-cover" />
             <h3 className="p-5 font-serif text-lg font-semibold text-foreground">{l.t}</h3>
           </article>
         ))}
@@ -582,7 +619,10 @@ export function AdmissionsCta() {
         playsInline
         className="absolute inset-0 -z-20 size-full object-cover"
       >
-        <source src="https://res.cloudinary.com/zvlxacfu/video/upload/f_auto,q_auto/VID-20260829-WA0086.mp4" type="video/mp4" />
+        <source
+          src="https://res.cloudinary.com/zvlxacfu/video/upload/f_auto,q_auto/VID-20260829-WA0086.mp4"
+          type="video/mp4"
+        />
       </video>
 
       {/* Crimson Overlay */}
@@ -661,28 +701,56 @@ export function Events() {
 }
 
 export function Notices() {
+  const { notices } = useNoticesCMS();
+  const activeNotices = notices.filter((n) => n.is_active);
+
   return (
     <section id="notices" className="scroll-mt-20 bg-secondary py-20 sm:py-28">
       <div className="mx-auto max-w-4xl px-5 sm:px-6">
         <SectionHeading
           eyebrow="Notice board"
-          title="Latest notices"
-          intro="Circulars and notices issued by the school office will be listed here, with PDF attachments where applicable."
+          title="Latest notices & circulars"
+          intro="Circulars and notices issued by the school administration, updated in real time."
         />
-        <ul className="mt-10 divide-y divide-border overflow-hidden rounded-2xl border border-dashed border-border bg-card">
-          {[1, 2, 3].map((i) => (
-            <li key={i} className="flex items-center gap-4 p-5">
+        <ul className="mt-10 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+          {activeNotices.length === 0 ? (
+            <li className="flex items-center gap-4 p-5">
               <FileText className="size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
               <div>
-                <h3 className="text-sm font-semibold text-foreground">
-                  No notices published yet
-                </h3>
+                <h3 className="text-sm font-semibold text-foreground">No notices published yet</h3>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Notices will be posted here as they are issued.
+                  Notices will be posted here as they are issued by the school office.
                 </p>
               </div>
             </li>
-          ))}
+          ) : (
+            activeNotices.map((n) => (
+              <li
+                key={n.id}
+                className="flex items-start justify-between gap-4 p-5 hover:bg-muted/40 transition-colors"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="mt-0.5 rounded-lg bg-primary/10 p-2 text-primary">
+                    <FileText className="size-4 shrink-0" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-bold text-accent uppercase tracking-wider">
+                        {n.category}
+                      </span>
+                      <span className="text-[11px] text-muted-foreground">• {n.publish_date}</span>
+                    </div>
+                    <h3 className="mt-0.5 text-sm font-semibold text-foreground sm:text-base">
+                      {n.title}
+                    </h3>
+                    <p className="mt-1 text-xs text-muted-foreground sm:text-sm leading-relaxed">
+                      {n.description}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            ))
+          )}
         </ul>
       </div>
     </section>
@@ -690,21 +758,40 @@ export function Notices() {
 }
 
 export function Achievements() {
-  const cats = ["Academics", "Sports", "Cultural", "Board results"];
+  const { achievements } = useAchievementsCMS();
+  const featured = achievements.filter((a) => a.is_featured);
+
   return (
     <section id="achievements" className="scroll-mt-20 bg-background py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
-        <SectionHeading
-          eyebrow="Achievements"
-          title="Celebrating our students"
-          intro="Verified achievements and board results are published by the school. Figures are added only once confirmed by the school office."
-        />
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <SectionHeading
+            eyebrow="Achievements"
+            title="Celebrating our students"
+            intro="Verified achievements and board results published by the school administration."
+          />
+          <Link
+            to="/achievements"
+            className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-accent transition-colors"
+          >
+            View All Achievements <ArrowRight className="size-4" />
+          </Link>
+        </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {cats.map((c) => (
-            <div key={c} className="rounded-2xl border border-dashed border-border bg-card p-6">
-              <Award className="size-5 text-primary" aria-hidden="true" />
-              <h3 className="mt-3 font-serif text-lg font-semibold text-foreground">{c}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">To be published by the school.</p>
+          {featured.map((a) => (
+            <div
+              key={a.id}
+              className="rounded-2xl border border-border bg-card p-6 shadow-sm hover:border-primary/40 transition-all"
+            >
+              <div className="flex items-center justify-between">
+                <Award className="size-5 text-primary" aria-hidden="true" />
+                <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-[11px] font-semibold text-accent">
+                  {a.year}
+                </span>
+              </div>
+              <h3 className="mt-3 font-serif text-lg font-semibold text-foreground">{a.title}</h3>
+              {a.badge && <p className="mt-1 text-xs font-semibold text-primary">{a.badge}</p>}
+              <p className="mt-2 text-sm text-muted-foreground line-clamp-3">{a.description}</p>
             </div>
           ))}
         </div>
@@ -714,70 +801,49 @@ export function Achievements() {
 }
 
 export function Testimonials() {
+  const { data: testimonials } = usePageSection("home", "testimonials", DEFAULT_TESTIMONIALS);
+
   return (
     <section className="bg-secondary py-20 sm:py-28">
-      <div className="mx-auto max-w-3xl px-5 text-center sm:px-6">
+      <div className="mx-auto max-w-5xl px-5 sm:px-6 text-center">
         <SectionHeading eyebrow="Testimonials" title="In the words of our families" />
-        <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-          We publish only genuine messages shared by parents and students. If you are part of the
-          Shandilya family and would like to share your experience, we would love to hear from you.
-        </p>
-        <a
-          href={`mailto:${SCHOOL.email}?subject=${encodeURIComponent("Testimonial for Shandilya Public School")}`}
-          className="mt-8 inline-block rounded-full border border-foreground/20 px-7 py-3.5 text-sm font-bold tracking-[0.12em] text-foreground uppercase transition hover:bg-card"
-        >
-          Share your experience
-        </a>
+        <div className="mt-12 grid gap-6 sm:grid-cols-3 text-left">
+          {testimonials.map((t) => (
+            <div
+              key={t.id || t.author}
+              className="rounded-2xl border border-border bg-card p-6 shadow-sm flex flex-col justify-between"
+            >
+              <p className="text-sm italic leading-relaxed text-muted-foreground">“{t.quote}”</p>
+              <div className="mt-6 border-t border-border/80 pt-4">
+                <p className="font-serif text-base font-semibold text-foreground">{t.author}</p>
+                <p className="text-xs text-muted-foreground">{t.role}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-10">
+          <Link
+            to="/admissions/apply"
+            className="inline-block rounded-full bg-primary px-7 py-3.5 text-sm font-bold tracking-[0.12em] text-primary-foreground uppercase transition hover:scale-105"
+          >
+            Join the Shandilya Family
+          </Link>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ---------------- Section 13: FAQ ---------------- */
-
-const FAQS = [
-  {
-    q: "Which classes are open for admission?",
-    a: "Admissions are considered from Pre-Primary through Class XII, subject to seat availability in each class. Please submit an enquiry and the school office will confirm current availability.",
-  },
-  {
-    q: "How can I apply?",
-    a: "Submit the admission enquiry form on this website, or call the school office. Our admissions team will contact you and guide you through the next steps.",
-  },
-  {
-    q: "What documents are required?",
-    a: "Typically the birth certificate, transfer certificate from the previous school, the last report card, photographs and address proof. The school office will confirm the exact list for your child's class.",
-  },
-  {
-    q: "Is the school affiliated with CBSE?",
-    a: "Yes, Shandilya Public School is a CBSE-affiliated co-educational school.",
-  },
-  {
-    q: "Does the school provide transport?",
-    a: "School transport is available. Routes and charges are confirmed by the school office at the time of admission.",
-  },
-  {
-    q: "Which streams are available in Class XI?",
-    a: "Science, Commerce and Humanities. Exact subject combinations are confirmed by the school office.",
-  },
-  {
-    q: "Where can I find the fee structure?",
-    a: "The fee structure for the current academic session is shared by the school office. Please call us or submit an enquiry and we will send you the details.",
-  },
-  {
-    q: "How can I visit the school campus?",
-    a: "Call or WhatsApp the school office to arrange a convenient time for a campus visit.",
-  },
-];
-
 export function Faq() {
+  const { data: faqs } = usePageSection("home", "faqs", DEFAULT_FAQS);
+
   return (
     <section id="faq" className="scroll-mt-20 bg-background py-20 sm:py-28">
       <div className="mx-auto max-w-3xl px-5 sm:px-6">
         <SectionHeading eyebrow="Questions" title="Frequently asked questions" />
         <Accordion type="single" collapsible className="mt-10">
-          {FAQS.map((f) => (
-            <AccordionItem key={f.q} value={f.q}>
+          {faqs.map((f) => (
+            <AccordionItem key={f.id || f.q} value={f.q}>
               <AccordionTrigger className="text-left font-serif text-base font-semibold text-foreground sm:text-lg">
                 {f.q}
               </AccordionTrigger>

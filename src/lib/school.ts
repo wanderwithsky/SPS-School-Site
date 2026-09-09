@@ -78,9 +78,9 @@ export const NAV: {
       { label: "Apply Now", to: "/admissions/apply" },
     ],
   },
-  { 
-    label: "Teachers", 
-    to: "/teachers", 
+  {
+    label: "Teachers",
+    to: "/teachers",
   },
   { label: "Contact", to: "/contact" },
 ];
