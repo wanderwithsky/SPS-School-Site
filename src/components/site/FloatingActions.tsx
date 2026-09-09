@@ -89,7 +89,6 @@ export function FloatingActions() {
           )}
         </AnimatePresence>
 
-
         <Link
           to="/admissions/apply"
           className="flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-xl transition hover:bg-primary/90"
@@ -98,7 +97,6 @@ export function FloatingActions() {
           Apply now
         </Link>
       </div>
-
 
       {/* Mobile sticky bar */}
       <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-border bg-card/95 backdrop-blur md:hidden">
