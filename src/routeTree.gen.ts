@@ -12,9 +12,21 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AchievementsRouteImport } from './routes/achievements'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as FeeStructureRouteImport } from './routes/fee-structure'
 import { Route as TeachersRouteImport } from './routes/teachers'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAcademicCalendarRouteImport } from './routes/admin.academic-calendar'
+import { Route as AdminAchievementsRouteImport } from './routes/admin.achievements'
+import { Route as AdminAdmissionsRouteImport } from './routes/admin.admissions'
+import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
+import { Route as AdminEventsRouteImport } from './routes/admin.events'
+import { Route as AdminFaqsRouteImport } from './routes/admin.faqs'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminNoticesRouteImport } from './routes/admin.notices'
+import { Route as AdminTeachersRouteImport } from './routes/admin.teachers'
 import { Route as AdmissionsApplyRouteImport } from './routes/admissions.apply'
 
 const IndexRoute = IndexRouteImport.update({
@@ -32,9 +44,19 @@ const AchievementsRoute = AchievementsRouteImport.update({
   path: '/achievements',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FeeStructureRoute = FeeStructureRouteImport.update({
@@ -47,6 +69,56 @@ const TeachersRoute = TeachersRouteImport.update({
   path: '/teachers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAcademicCalendarRoute = AdminAcademicCalendarRouteImport.update({
+  id: '/academic-calendar',
+  path: '/academic-calendar',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAchievementsRoute = AdminAchievementsRouteImport.update({
+  id: '/achievements',
+  path: '/achievements',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAdmissionsRoute = AdminAdmissionsRouteImport.update({
+  id: '/admissions',
+  path: '/admissions',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEventsRoute = AdminEventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFaqsRoute = AdminFaqsRouteImport.update({
+  id: '/faqs',
+  path: '/faqs',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNoticesRoute = AdminNoticesRouteImport.update({
+  id: '/notices',
+  path: '/notices',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTeachersRoute = AdminTeachersRouteImport.update({
+  id: '/teachers',
+  path: '/teachers',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdmissionsApplyRoute = AdmissionsApplyRouteImport.update({
   id: '/admissions/apply',
   path: '/admissions/apply',
@@ -57,29 +129,64 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/achievements': typeof AchievementsRoute
+  '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
+  '/events': typeof EventsRoute
   '/fee-structure': typeof FeeStructureRoute
   '/teachers': typeof TeachersRoute
+  '/admin/academic-calendar': typeof AdminAcademicCalendarRoute
+  '/admin/achievements': typeof AdminAchievementsRoute
+  '/admin/admissions': typeof AdminAdmissionsRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/faqs': typeof AdminFaqsRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/notices': typeof AdminNoticesRoute
+  '/admin/teachers': typeof AdminTeachersRoute
   '/admissions/apply': typeof AdmissionsApplyRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/achievements': typeof AchievementsRoute
   '/contact': typeof ContactRoute
+  '/events': typeof EventsRoute
   '/fee-structure': typeof FeeStructureRoute
   '/teachers': typeof TeachersRoute
+  '/admin/academic-calendar': typeof AdminAcademicCalendarRoute
+  '/admin/achievements': typeof AdminAchievementsRoute
+  '/admin/admissions': typeof AdminAdmissionsRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/faqs': typeof AdminFaqsRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/notices': typeof AdminNoticesRoute
+  '/admin/teachers': typeof AdminTeachersRoute
   '/admissions/apply': typeof AdmissionsApplyRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/achievements': typeof AchievementsRoute
+  '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
+  '/events': typeof EventsRoute
   '/fee-structure': typeof FeeStructureRoute
   '/teachers': typeof TeachersRoute
+  '/admin/academic-calendar': typeof AdminAcademicCalendarRoute
+  '/admin/achievements': typeof AdminAchievementsRoute
+  '/admin/admissions': typeof AdminAdmissionsRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/faqs': typeof AdminFaqsRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/notices': typeof AdminNoticesRoute
+  '/admin/teachers': typeof AdminTeachersRoute
   '/admissions/apply': typeof AdmissionsApplyRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -87,35 +194,72 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/achievements'
+    | '/admin'
     | '/contact'
+    | '/events'
     | '/fee-structure'
     | '/teachers'
+    | '/admin/academic-calendar'
+    | '/admin/achievements'
+    | '/admin/admissions'
+    | '/admin/dashboard'
+    | '/admin/events'
+    | '/admin/faqs'
+    | '/admin/login'
+    | '/admin/notices'
+    | '/admin/teachers'
     | '/admissions/apply'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/achievements'
     | '/contact'
+    | '/events'
     | '/fee-structure'
     | '/teachers'
+    | '/admin/academic-calendar'
+    | '/admin/achievements'
+    | '/admin/admissions'
+    | '/admin/dashboard'
+    | '/admin/events'
+    | '/admin/faqs'
+    | '/admin/login'
+    | '/admin/notices'
+    | '/admin/teachers'
     | '/admissions/apply'
+    | '/admin'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/achievements'
+    | '/admin'
     | '/contact'
+    | '/events'
     | '/fee-structure'
     | '/teachers'
+    | '/admin/academic-calendar'
+    | '/admin/achievements'
+    | '/admin/admissions'
+    | '/admin/dashboard'
+    | '/admin/events'
+    | '/admin/faqs'
+    | '/admin/login'
+    | '/admin/notices'
+    | '/admin/teachers'
     | '/admissions/apply'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AchievementsRoute: typeof AchievementsRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ContactRoute: typeof ContactRoute
+  EventsRoute: typeof EventsRoute
   FeeStructureRoute: typeof FeeStructureRoute
   TeachersRoute: typeof TeachersRoute
   AdmissionsApplyRoute: typeof AdmissionsApplyRoute
@@ -144,11 +288,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AchievementsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fee-structure': {
@@ -165,6 +323,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeachersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/academic-calendar': {
+      id: '/admin/academic-calendar'
+      path: '/academic-calendar'
+      fullPath: '/admin/academic-calendar'
+      preLoaderRoute: typeof AdminAcademicCalendarRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/achievements': {
+      id: '/admin/achievements'
+      path: '/achievements'
+      fullPath: '/admin/achievements'
+      preLoaderRoute: typeof AdminAchievementsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/admissions': {
+      id: '/admin/admissions'
+      path: '/admissions'
+      fullPath: '/admin/admissions'
+      preLoaderRoute: typeof AdminAdmissionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/events': {
+      id: '/admin/events'
+      path: '/events'
+      fullPath: '/admin/events'
+      preLoaderRoute: typeof AdminEventsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/faqs': {
+      id: '/admin/faqs'
+      path: '/faqs'
+      fullPath: '/admin/faqs'
+      preLoaderRoute: typeof AdminFaqsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/notices': {
+      id: '/admin/notices'
+      path: '/notices'
+      fullPath: '/admin/notices'
+      preLoaderRoute: typeof AdminNoticesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/teachers': {
+      id: '/admin/teachers'
+      path: '/teachers'
+      fullPath: '/admin/teachers'
+      preLoaderRoute: typeof AdminTeachersRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admissions/apply': {
       id: '/admissions/apply'
       path: '/admissions/apply'
@@ -175,11 +403,41 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminAcademicCalendarRoute: typeof AdminAcademicCalendarRoute
+  AdminAchievementsRoute: typeof AdminAchievementsRoute
+  AdminAdmissionsRoute: typeof AdminAdmissionsRoute
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminEventsRoute: typeof AdminEventsRoute
+  AdminFaqsRoute: typeof AdminFaqsRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminNoticesRoute: typeof AdminNoticesRoute
+  AdminTeachersRoute: typeof AdminTeachersRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAcademicCalendarRoute: AdminAcademicCalendarRoute,
+  AdminAchievementsRoute: AdminAchievementsRoute,
+  AdminAdmissionsRoute: AdminAdmissionsRoute,
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminEventsRoute: AdminEventsRoute,
+  AdminFaqsRoute: AdminFaqsRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminNoticesRoute: AdminNoticesRoute,
+  AdminTeachersRoute: AdminTeachersRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AchievementsRoute: AchievementsRoute,
+  AdminRoute: AdminRouteWithChildren,
   ContactRoute: ContactRoute,
+  EventsRoute: EventsRoute,
   FeeStructureRoute: FeeStructureRoute,
   TeachersRoute: TeachersRoute,
   AdmissionsApplyRoute: AdmissionsApplyRoute,

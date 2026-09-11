@@ -35,12 +35,7 @@ export function TopRibbon() {
           <Phone className="size-3.5" aria-hidden="true" />
           {RIBBON.phone}
         </a>
-        <a
-          href={RIBBON.whatsappHref}
-          target="_blank"
-          rel="noreferrer noopener"
-          className={linkCls}
-        >
+        <a href={RIBBON.whatsappHref} target="_blank" rel="noreferrer noopener" className={linkCls}>
           <WhatsAppGlyph className="size-3.5" />
           {RIBBON.whatsapp}
         </a>

@@ -60,6 +60,7 @@ export const NAV: {
       { label: "Our School", to: "/about" },
       { label: "Vision & Mission", to: "/", hash: "welcome" },
       { label: "Achievements", to: "/achievements" },
+      { label: "Events & Activities", to: "/events" },
     ],
   },
   {
@@ -78,9 +79,9 @@ export const NAV: {
       { label: "Apply Now", to: "/admissions/apply" },
     ],
   },
-  { 
-    label: "Teachers", 
-    to: "/teachers", 
+  {
+    label: "Teachers",
+    to: "/teachers",
   },
   { label: "Contact", to: "/contact" },
 ];

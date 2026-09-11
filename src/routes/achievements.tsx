@@ -6,7 +6,8 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { cn } from "@/lib/utils";
 
 const TITLE = "Achievements | Shandilya Public School, Varanasi";
-const DESC = "Explore the academic achievements, toppers and student accomplishments of Shandilya Public School, Varanasi.";
+const DESC =
+  "Explore the academic achievements, toppers and student accomplishments of Shandilya Public School, Varanasi.";
 
 export const Route = createFileRoute("/achievements")({
   head: () => ({
@@ -32,7 +33,8 @@ const ACHIEVERS = [
     achievement: "Academic Achievement",
     result: "97%",
     description: "A Student to Remember",
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788927450/Shandilya-Public-School-HeroSection4.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788927450/Shandilya-Public-School-HeroSection4.jpg",
     featured: true,
   },
   {
@@ -42,7 +44,8 @@ const ACHIEVERS = [
     achievement: "Academic Achievement",
     result: "Board Excellence",
     description: "A Student to Remember",
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788927450/Shandilya-Public-School-HeroSection6.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788927450/Shandilya-Public-School-HeroSection6.jpg",
   },
   {
     id: 3,
@@ -51,7 +54,8 @@ const ACHIEVERS = [
     achievement: "Academic Achievement",
     result: "94%",
     description: "A Student to Remember",
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788927450/Shandilya-Public-School-HeroSection5.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788927450/Shandilya-Public-School-HeroSection5.jpg",
   },
   {
     id: 4,
@@ -60,7 +64,8 @@ const ACHIEVERS = [
     achievement: "Academic Achievement",
     result: "Board Excellence",
     description: "A Student to Remember",
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788927450/Shandilya-Public-School-HeroSection3.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788927450/Shandilya-Public-School-HeroSection3.jpg",
   },
   {
     id: 5,
@@ -69,7 +74,8 @@ const ACHIEVERS = [
     achievement: "Academic Achievement",
     result: "Board Excellence",
     description: "A Student to Remember",
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788927450/Shandilya-Public-School-HeroSection2.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788927450/Shandilya-Public-School-HeroSection2.jpg",
   },
 ];
 
@@ -82,32 +88,45 @@ const STATS = [
 
 const TIMELINE = [
   { year: "2023", title: "Board Excellence", desc: "A remarkable year of academic achievements." },
-  { year: "2024", title: "Academic Milestones", desc: "Setting new benchmarks in student success." },
+  {
+    year: "2024",
+    title: "Academic Milestones",
+    desc: "Setting new benchmarks in student success.",
+  },
   { year: "2025", title: "Student Achievements", desc: "Continuing the tradition of excellence." },
-  { year: "2026", title: "New Milestones", desc: "Our journey of educational brilliance continues." },
+  {
+    year: "2026",
+    title: "New Milestones",
+    desc: "Our journey of educational brilliance continues.",
+  },
 ];
 
 function AchievementsPage() {
-  const [selectedAchiever, setSelectedAchiever] = useState<typeof ACHIEVERS[0] | null>(null);
+  const [selectedAchiever, setSelectedAchiever] = useState<(typeof ACHIEVERS)[0] | null>(null);
 
   return (
     <SiteLayout>
       <main className="flex flex-col bg-background">
-        
         {/* HERO SECTION */}
         <section className="relative flex min-h-[55vh] flex-col items-center justify-center overflow-hidden bg-ink px-4 pt-32 pb-20 text-center text-ink-foreground lg:min-h-[65vh]">
           {/* Subtle background image from the featured achiever */}
           <div className="absolute inset-0">
-            <img 
-              src={ACHIEVERS[0].image} 
-              alt="Achievement Background" 
+            <img
+              src={ACHIEVERS[0].image}
+              alt="Achievement Background"
               className="h-full w-full object-cover opacity-15 transition-transform duration-[10s] ease-out hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-ink/95 via-ink/85 to-ink"></div>
             {/* Subtle noise/texture overlay */}
-            <div className="pointer-events-none absolute inset-0 mix-blend-overlay opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
+            <div
+              className="pointer-events-none absolute inset-0 mix-blend-overlay opacity-10"
+              style={{
+                backgroundImage:
+                  'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")',
+              }}
+            ></div>
           </div>
-          
+
           <div className="relative z-10 flex max-w-3xl flex-col items-center space-y-6">
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
@@ -115,7 +134,7 @@ function AchievementsPage() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="mb-2 h-px w-12 bg-[#D4A94F]"
             />
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
@@ -123,35 +142,39 @@ function AchievementsPage() {
             >
               Achievements
             </motion.span>
-            
-            <motion.h1 
+
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="font-serif text-5xl leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5rem]"
             >
-              Brilliant Minds.<br />
+              Brilliant Minds.
+              <br />
               <span className="italic text-white/95">Proud Moments.</span>
             </motion.h1>
 
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
               className="max-w-xl text-base font-light leading-relaxed text-ink-foreground/80 sm:text-lg"
             >
-              Celebrating the students whose dedication, discipline and determination continue to make Shandilya Public School proud.
+              Celebrating the students whose dedication, discipline and determination continue to
+              make Shandilya Public School proud.
             </motion.p>
           </div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 1 }}
             className="absolute bottom-8 flex flex-col items-center gap-2"
           >
-            <span className="text-[10px] font-semibold tracking-[0.2em] text-ink-foreground/50 uppercase">Discover Our Achievers</span>
-            <motion.div 
+            <span className="text-[10px] font-semibold tracking-[0.2em] text-ink-foreground/50 uppercase">
+              Discover Our Achievers
+            </span>
+            <motion.div
               animate={{ y: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
               className="text-[#D4A94F]"
@@ -164,7 +187,7 @@ function AchievementsPage() {
         {/* INTRODUCTION SECTION */}
         <section className="bg-background px-4 py-20 sm:px-6 lg:px-8 lg:py-32">
           <div className="mx-auto flex max-w-7xl flex-col items-center gap-12 lg:flex-row lg:gap-20">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -179,11 +202,13 @@ function AchievementsPage() {
                 <span className="italic">A Mark.</span>
               </h2>
               <p className="mx-auto max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
-                Every achievement reflects countless hours of preparation, perseverance and belief. At Shandilya, every milestone is celebrated as a reflection of the student's journey and dedication.
+                Every achievement reflects countless hours of preparation, perseverance and belief.
+                At Shandilya, every milestone is celebrated as a reflection of the student's journey
+                and dedication.
               </p>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -191,9 +216,9 @@ function AchievementsPage() {
               className="relative flex-1"
             >
               <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted/20 shadow-xl">
-                <img 
-                  src={ACHIEVERS[1].image} 
-                  alt="Students of Shandilya Public School" 
+                <img
+                  src={ACHIEVERS[1].image}
+                  alt="Students of Shandilya Public School"
                   className="h-full w-full object-cover"
                 />
               </div>
@@ -232,7 +257,8 @@ function AchievementsPage() {
           <div className="mx-auto max-w-[1400px]">
             <div className="mb-16 text-center">
               <h2 className="mb-4 font-serif text-4xl text-foreground sm:text-5xl lg:text-6xl">
-                Our Toppers.<br />
+                Our Toppers.
+                <br />
                 <span className="italic text-primary">Our Pride.</span>
               </h2>
               <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
@@ -244,17 +270,35 @@ function AchievementsPage() {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
               {/* Row 1 */}
               <div className="relative md:col-span-2">
-                <AchieverCard achiever={ACHIEVERS[0]} featured onClick={() => setSelectedAchiever(ACHIEVERS[0])} />
+                <AchieverCard
+                  achiever={ACHIEVERS[0]}
+                  featured
+                  onClick={() => setSelectedAchiever(ACHIEVERS[0])}
+                />
               </div>
               <div className="flex flex-col gap-4 md:gap-6">
-                <AchieverCard achiever={ACHIEVERS[1]} onClick={() => setSelectedAchiever(ACHIEVERS[1])} />
-                <AchieverCard achiever={ACHIEVERS[2]} onClick={() => setSelectedAchiever(ACHIEVERS[2])} />
+                <AchieverCard
+                  achiever={ACHIEVERS[1]}
+                  onClick={() => setSelectedAchiever(ACHIEVERS[1])}
+                />
+                <AchieverCard
+                  achiever={ACHIEVERS[2]}
+                  onClick={() => setSelectedAchiever(ACHIEVERS[2])}
+                />
               </div>
-              
+
               {/* Row 2 */}
               <div className="grid grid-cols-1 gap-4 md:col-span-3 md:grid-cols-2 md:gap-6 mt-2 md:mt-0">
-                <AchieverCard achiever={ACHIEVERS[3]} featured onClick={() => setSelectedAchiever(ACHIEVERS[3])} />
-                <AchieverCard achiever={ACHIEVERS[4]} featured onClick={() => setSelectedAchiever(ACHIEVERS[4])} />
+                <AchieverCard
+                  achiever={ACHIEVERS[3]}
+                  featured
+                  onClick={() => setSelectedAchiever(ACHIEVERS[3])}
+                />
+                <AchieverCard
+                  achiever={ACHIEVERS[4]}
+                  featured
+                  onClick={() => setSelectedAchiever(ACHIEVERS[4])}
+                />
               </div>
             </div>
           </div>
@@ -262,9 +306,15 @@ function AchievementsPage() {
 
         {/* SHARP MINDS SECTION */}
         <section className="relative overflow-hidden bg-ink px-4 py-28 text-center sm:px-6 lg:px-8 lg:py-40">
-          <div className="pointer-events-none absolute inset-0 opacity-10 mix-blend-overlay" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
+          <div
+            className="pointer-events-none absolute inset-0 opacity-10 mix-blend-overlay"
+            style={{
+              backgroundImage:
+                'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")',
+            }}
+          ></div>
           <div className="absolute inset-0 bg-gradient-to-br from-ink via-ink to-primary/20 opacity-50"></div>
-          
+
           <div className="relative z-10 mx-auto max-w-3xl">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -275,26 +325,28 @@ function AchievementsPage() {
             >
               <div className="size-2 rounded-full bg-[#D4A94F]"></div>
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
               className="mb-8 font-serif text-4xl text-white sm:text-5xl lg:text-6xl"
             >
-              Sharp Minds.<br />
+              Sharp Minds.
+              <br />
               <span className="italic text-[#D4A94F]">Strong Futures.</span>
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="text-lg font-light leading-relaxed text-white/80 sm:text-xl"
             >
-              At Shandilya Public School, academic achievement is not only about marks. It is about curiosity, discipline, perseverance and the confidence to aim higher.
+              At Shandilya Public School, academic achievement is not only about marks. It is about
+              curiosity, discipline, perseverance and the confidence to aim higher.
             </motion.p>
           </div>
         </section>
@@ -306,22 +358,27 @@ function AchievementsPage() {
               From Classroom <br className="hidden sm:block" />
               <span className="italic text-primary">to New Possibilities</span>
             </h2>
-            
+
             <div className="flex flex-col items-center justify-between gap-8 md:flex-row md:gap-4">
-              {['LEARN', 'PERSIST', 'ACHIEVE', 'GROW', 'MOVE FORWARD'].map((step, i, arr) => (
-                <div key={step} className="flex w-full flex-col items-center md:flex-row md:justify-center">
-                  <motion.div 
+              {["LEARN", "PERSIST", "ACHIEVE", "GROW", "MOVE FORWARD"].map((step, i, arr) => (
+                <div
+                  key={step}
+                  className="flex w-full flex-col items-center md:flex-row md:justify-center"
+                >
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
                     className="flex size-32 flex-col items-center justify-center rounded-full border border-border bg-card shadow-sm transition-colors hover:border-primary/50 hover:bg-secondary/30"
                   >
-                    <span className="text-xs font-bold tracking-widest text-foreground uppercase">{step}</span>
+                    <span className="text-xs font-bold tracking-widest text-foreground uppercase">
+                      {step}
+                    </span>
                   </motion.div>
-                  
+
                   {i < arr.length - 1 && (
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, scaleX: 0 }}
                       whileInView={{ opacity: 1, scaleX: 1 }}
                       viewport={{ once: true }}
@@ -339,33 +396,45 @@ function AchievementsPage() {
         <section className="bg-secondary/20 px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-24">
-              
               {/* Board Results Architecture */}
               <div>
                 <h2 className="mb-10 font-serif text-3xl text-foreground sm:text-4xl">
                   Excellence, <br />
                   <span className="italic text-primary">Year After Year.</span>
                 </h2>
-                
+
                 <div className="space-y-8">
-                  {['CLASS X', 'CLASS XII'].map((cls) => (
-                    <div key={cls} className="rounded-2xl border border-border bg-white p-8 shadow-sm">
-                      <h3 className="mb-6 border-b border-border pb-4 text-lg font-bold tracking-widest text-foreground uppercase">{cls}</h3>
+                  {["CLASS X", "CLASS XII"].map((cls) => (
+                    <div
+                      key={cls}
+                      className="rounded-2xl border border-border bg-white p-8 shadow-sm"
+                    >
+                      <h3 className="mb-6 border-b border-border pb-4 text-lg font-bold tracking-widest text-foreground uppercase">
+                        {cls}
+                      </h3>
                       <div className="grid grid-cols-2 gap-y-6 sm:grid-cols-4">
                         <div>
-                          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Academic Year</p>
+                          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+                            Academic Year
+                          </p>
                           <p className="font-serif text-xl font-medium">----</p>
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Appeared</p>
+                          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+                            Appeared
+                          </p>
                           <p className="font-serif text-xl font-medium">----</p>
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Passed</p>
+                          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+                            Passed
+                          </p>
                           <p className="font-serif text-xl font-medium">----</p>
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Pass %</p>
+                          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+                            Pass %
+                          </p>
                           <p className="font-serif text-xl font-medium text-primary">----</p>
                         </div>
                       </div>
@@ -379,7 +448,7 @@ function AchievementsPage() {
                 <div className="absolute bottom-0 left-[23px] top-0 w-px bg-border sm:left-[27px]"></div>
                 <div className="space-y-12">
                   {TIMELINE.map((item, i) => (
-                    <motion.div 
+                    <motion.div
                       key={item.year}
                       initial={{ opacity: 0, x: 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -388,14 +457,15 @@ function AchievementsPage() {
                       className="relative pl-14 sm:pl-16"
                     >
                       <div className="absolute left-4 top-1 size-3 sm:left-5 rounded-full border-[3px] border-white bg-primary shadow-sm"></div>
-                      <span className="mb-1 block text-sm font-bold tracking-widest text-[#D4A94F]">{item.year}</span>
+                      <span className="mb-1 block text-sm font-bold tracking-widest text-[#D4A94F]">
+                        {item.year}
+                      </span>
                       <h4 className="mb-2 font-serif text-2xl text-foreground">{item.title}</h4>
                       <p className="text-muted-foreground">{item.desc}</p>
                     </motion.div>
                   ))}
                 </div>
               </div>
-              
             </div>
           </div>
         </section>
@@ -410,8 +480,17 @@ function AchievementsPage() {
               Excellence at Shandilya extends beyond the classroom.
             </p>
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-              {['ACADEMICS', 'SPORTS', 'CULTURAL ACTIVITIES', 'COMPETITIONS', 'CREATIVE EXPRESSION'].map((category) => (
-                <span key={category} className="rounded-full border border-border bg-card px-6 py-3 text-xs font-bold tracking-widest text-foreground/80 uppercase shadow-sm transition-colors hover:border-primary/30 hover:text-primary">
+              {[
+                "ACADEMICS",
+                "SCHOOL CAMPUS",
+                "CULTURAL ACTIVITIES",
+                "COMPETITIONS",
+                "CREATIVE EXPRESSION",
+              ].map((category) => (
+                <span
+                  key={category}
+                  className="rounded-full border border-border bg-card px-6 py-3 text-xs font-bold tracking-widest text-foreground/80 uppercase shadow-sm transition-colors hover:border-primary/30 hover:text-primary"
+                >
                   {category}
                 </span>
               ))}
@@ -450,22 +529,19 @@ function AchievementsPage() {
       {/* LIGHTBOX */}
       <AnimatePresence>
         {selectedAchiever && (
-          <Lightbox 
-            achiever={selectedAchiever} 
-            onClose={() => setSelectedAchiever(null)} 
-          />
+          <Lightbox achiever={selectedAchiever} onClose={() => setSelectedAchiever(null)} />
         )}
       </AnimatePresence>
     </SiteLayout>
   );
 }
 
-function AchieverCard({ 
-  achiever, 
+function AchieverCard({
+  achiever,
   featured = false,
-  onClick 
-}: { 
-  achiever: typeof ACHIEVERS[0]; 
+  onClick,
+}: {
+  achiever: (typeof ACHIEVERS)[0];
   featured?: boolean;
   onClick: () => void;
 }) {
@@ -477,7 +553,9 @@ function AchieverCard({
       transition={{ duration: 0.7, ease: "easeOut" }}
       className={cn(
         "group relative flex w-full cursor-pointer flex-col overflow-hidden rounded-[14px] border border-black/5 bg-white shadow-sm transition-all hover:shadow-lg",
-        featured ? "h-[350px] sm:h-[450px] md:h-full min-h-[400px]" : "h-[300px] sm:h-[400px] md:h-[350px]"
+        featured
+          ? "h-[350px] sm:h-[450px] md:h-full min-h-[400px]"
+          : "h-[300px] sm:h-[400px] md:h-[350px]",
       )}
       onClick={onClick}
       role="button"
@@ -489,7 +567,7 @@ function AchieverCard({
           alt={`Achievement by ${achiever.name}`}
           className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
         />
-        
+
         {/* Hover Overlay - Subtle Premium Reveal */}
         <div className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-400 ease-out group-hover:opacity-100 p-6 z-10">
           <div className="translate-y-3 transition-transform duration-400 ease-out group-hover:translate-y-0">
@@ -509,7 +587,7 @@ function AchieverCard({
   );
 }
 
-function Lightbox({ achiever, onClose }: { achiever: typeof ACHIEVERS[0]; onClose: () => void }) {
+function Lightbox({ achiever, onClose }: { achiever: (typeof ACHIEVERS)[0]; onClose: () => void }) {
   useEffect(() => {
     const originalStyle = window.getComputedStyle(document.body).overflow;
     document.body.style.overflow = "hidden";
@@ -529,7 +607,7 @@ function Lightbox({ achiever, onClose }: { achiever: typeof ACHIEVERS[0]; onClos
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 lg:p-8">
       {/* Backdrop */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -537,9 +615,9 @@ function Lightbox({ achiever, onClose }: { achiever: typeof ACHIEVERS[0]; onClos
         className="absolute inset-0 bg-ink/90 backdrop-blur-md cursor-pointer"
         onClick={onClose}
       />
-      
+
       {/* Modal Content */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
@@ -547,7 +625,7 @@ function Lightbox({ achiever, onClose }: { achiever: typeof ACHIEVERS[0]; onClos
         className="relative z-10 flex max-h-full w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl lg:flex-row cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
-        <button 
+        <button
           onClick={onClose}
           className="absolute right-4 top-4 z-20 flex size-10 items-center justify-center rounded-full bg-black/10 text-white backdrop-blur-md transition-colors hover:bg-black/30 lg:right-5 lg:top-5"
           aria-label="Close dialog"
@@ -556,9 +634,9 @@ function Lightbox({ achiever, onClose }: { achiever: typeof ACHIEVERS[0]; onClos
         </button>
 
         <div className="relative flex w-full shrink-0 items-center justify-center bg-black/5 lg:w-[65%]">
-          <img 
-            src={achiever.image} 
-            alt={achiever.name} 
+          <img
+            src={achiever.image}
+            alt={achiever.name}
             className="max-h-[60vh] w-auto max-w-full object-contain shadow-sm lg:max-h-[85vh] p-4 lg:p-0"
           />
         </div>

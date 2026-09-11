@@ -26,8 +26,16 @@ export const Route = createFileRoute("/admissions/apply")({
 
 const STEPS = [
   { n: "01", t: "Submit enquiry", d: "Share your child's details through the form on this page." },
-  { n: "02", t: "School team contacts you", d: "Our admissions team calls you to answer questions." },
-  { n: "03", t: "Registration / interaction", d: "A friendly interaction with the child and parents." },
+  {
+    n: "02",
+    t: "School team contacts you",
+    d: "Our admissions team calls you to answer questions.",
+  },
+  {
+    n: "03",
+    t: "Registration / interaction",
+    d: "A friendly interaction with the child and parents.",
+  },
   { n: "04", t: "Document verification", d: "Submit the required documents at the school office." },
   { n: "05", t: "Admission confirmation", d: "Complete the formalities and confirm the seat." },
 ];

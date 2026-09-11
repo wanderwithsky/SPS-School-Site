@@ -23,137 +23,127 @@ export const Route = createFileRoute("/teachers")({
   component: TeachersPage,
 });
 
-const TEACHERS = [
+type TeacherType = {
+  id: number;
+  name: string;
+  image: string;
+  designation?: string;
+  dob?: string;
+  oasisId?: string;
+  teacherId?: string;
+};
+
+const TEACHERS: TeacherType[] = [
   {
     id: 1,
-    name: "Teacher 01",
-    designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
+    name: "Priya Kumari",
+    dob: "1999-03-31",
+    designation: "TGT",
+    oasisId: "3410412",
     image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925103/IMG-20260829-WA0070.jpg",
   },
   {
     id: 2,
-    name: "Teacher 02",
-    designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925103/null-20260830-WA0004.jpg",
+    name: "Dhatri Kumari",
+    dob: "2002-01-10",
+    designation: "PRT",
+    oasisId: "3411574",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788975376/50d44241-f5c7-4664-bc4a-36eb45936299.jpg",
   },
   {
     id: 3,
-    name: "Teacher 03",
-    designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
+    name: "Pragya Singh",
+    dob: "1998-10-01",
+    designation: "PRT",
+    teacherId: "3419171",
     image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925104/IMG-20260829-WA0067.jpg",
   },
   {
     id: 4,
     name: "Teacher 04",
     designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925104/null-20260804-WA0014.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788975460/023cf2b4-795d-4ecf-af18-3a785208770c.jpg",
   },
   {
     id: 5,
-    name: "Teacher 05",
-    designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
+    name: "Manoj Kumar Singh",
+    dob: "1992-01-02",
+    designation: "PGT (Geography)",
     image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925104/IMG-20260829-WA0064.jpg",
   },
   {
     id: 6,
-    name: "Teacher 06",
-    designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
+    name: "Shikha Rai",
+    dob: "1999-11-19",
+    designation: "PRT Teacher",
     image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925104/IMG-20260829-WA0076.jpg",
   },
   {
     id: 7,
-    name: "Teacher 07",
-    designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
+    name: "Abhishek Verma",
+    dob: "1987-03-20",
+    designation: "TGT",
+    oasisId: "3097583",
     image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925104/IMG-20260829-WA0074.jpg",
   },
   {
     id: 8,
-    name: "Teacher 08",
-    designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
+    name: "Krishna Patel",
+    dob: "1994-07-25",
+    designation: "TGT Maths",
+    oasisId: "1169773",
     image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925105/IMG-20260829-WA0075.jpg",
   },
   {
     id: 9,
-    name: "Teacher 09",
-    designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
+    name: "Anita Singh",
+    dob: "1990-06-07",
+    designation: "PRT",
     image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925105/IMG-20260829-WA0073.jpg",
   },
   {
     id: 10,
-    name: "Teacher 10",
-    designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
+    name: "Kusum Singh",
+    dob: "1978-04-03",
+    designation: "PGT",
     image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925105/IMG-20260829-WA0078.jpg",
   },
   {
     id: 11,
-    name: "Teacher 11",
-    designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
+    name: "Sulabh Mishra",
+    dob: "2007-02-14",
+    designation: "Teacher",
+    oasisId: "3419199",
     image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925105/IMG-20260829-WA0066.jpg",
   },
   {
     id: 12,
     name: "Teacher 12",
     designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925106/null-20260830-WA0003.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788975383/7c211a1c-92cc-494c-99fb-6563e56b20ba.jpg",
   },
   {
     id: 13,
-    name: "Teacher 13",
-    designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
+    name: "Reena Singh",
+    designation: "Principal",
+    oasisId: "559707",
     image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925106/IMG-20260829-WA0115.jpg",
   },
   {
     id: 14,
-    name: "Teacher 14",
-    designation: "Faculty Member",
-    subject: "",
-    department: "",
-    description: "Helping students learn, explore and grow.",
+    name: "Mithilesh Kumar Upadhya",
+    dob: "1975-04-12",
+    designation: "PGT",
+    oasisId: "559709",
     image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788925106/IMG-20260829-WA0095.jpg",
   },
 ];
 
 function TeachersPage() {
-  const [selectedTeacher, setSelectedTeacher] = useState<typeof TEACHERS[0] | null>(null);
+  const [selectedTeacher, setSelectedTeacher] = useState<(typeof TEACHERS)[0] | null>(null);
 
   return (
     <SiteLayout>
@@ -161,10 +151,16 @@ function TeachersPage() {
         {/* HERO SECTION */}
         <section className="relative flex min-h-[50vh] flex-col items-center justify-center overflow-hidden bg-ink px-4 pt-32 pb-20 text-center text-ink-foreground lg:min-h-[55vh]">
           {/* Subtle noise/texture overlay for a premium feel */}
-          <div className="pointer-events-none absolute inset-0 mix-blend-overlay opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
-          
+          <div
+            className="pointer-events-none absolute inset-0 mix-blend-overlay opacity-10"
+            style={{
+              backgroundImage:
+                'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")',
+            }}
+          ></div>
+
           <div className="relative z-10 flex max-w-3xl flex-col items-center space-y-5">
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
@@ -172,8 +168,8 @@ function TeachersPage() {
             >
               Our Educators
             </motion.span>
-            
-            <motion.h1 
+
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
@@ -183,24 +179,27 @@ function TeachersPage() {
               <span className="italic text-white/95">Shape Young Minds</span>
             </motion.h1>
 
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="max-w-xl text-base font-light leading-relaxed text-ink-foreground/80 sm:text-lg"
             >
-              Meet the educators who contribute to the learning, growth and everyday experiences of students at Shandilya Public School.
+              Meet the educators who contribute to the learning, growth and everyday experiences of
+              students at Shandilya Public School.
             </motion.p>
           </div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9, duration: 1 }}
             className="absolute bottom-8 flex flex-col items-center gap-2"
           >
-            <span className="text-[10px] font-semibold tracking-[0.2em] text-ink-foreground/40 uppercase">Meet the Team</span>
-            <motion.div 
+            <span className="text-[10px] font-semibold tracking-[0.2em] text-ink-foreground/40 uppercase">
+              Meet the Team
+            </span>
+            <motion.div
               animate={{ y: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
               className="text-ink-foreground/40"
@@ -220,7 +219,8 @@ function TeachersPage() {
               Experience, Care & Guidance
             </h2>
             <p className="mx-auto text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Behind every classroom is a teacher who helps students ask better questions, discover their strengths and move forward with confidence.
+              Behind every classroom is a teacher who helps students ask better questions, discover
+              their strengths and move forward with confidence.
             </p>
           </div>
         </section>
@@ -229,11 +229,11 @@ function TeachersPage() {
         <section className="mx-auto w-full max-w-[1600px] px-4 pb-24 sm:px-6 lg:px-8">
           <div className="columns-1 gap-4 sm:columns-2 md:gap-5 lg:columns-3 xl:columns-4">
             {TEACHERS.map((teacher, index) => (
-              <TeacherCard 
-                key={teacher.id} 
-                teacher={teacher} 
-                index={index} 
-                onClick={() => setSelectedTeacher(teacher)} 
+              <TeacherCard
+                key={teacher.id}
+                teacher={teacher}
+                index={index}
+                onClick={() => setSelectedTeacher(teacher)}
               />
             ))}
           </div>
@@ -270,23 +270,38 @@ function TeachersPage() {
       {/* LIGHTBOX */}
       <AnimatePresence>
         {selectedTeacher && (
-          <Lightbox 
-            teacher={selectedTeacher} 
-            onClose={() => setSelectedTeacher(null)} 
-          />
+          <Lightbox teacher={selectedTeacher} onClose={() => setSelectedTeacher(null)} />
         )}
       </AnimatePresence>
     </SiteLayout>
   );
 }
 
-function TeacherCard({ 
-  teacher, 
-  index, 
-  onClick 
-}: { 
-  teacher: typeof TEACHERS[0]; 
-  index: number; 
+function calculateAge(dobStr?: string) {
+  if (!dobStr) return null;
+  const [year, month, day] = dobStr.split("-").map(Number);
+  const today = new Date();
+  let age = today.getFullYear() - year;
+  const m = today.getMonth() + 1 - month;
+  if (m < 0 || (m === 0 && today.getDate() < day)) {
+    age--;
+  }
+  return age;
+}
+
+function formatDob(dobStr?: string) {
+  if (!dobStr) return null;
+  const [year, month, day] = dobStr.split("-");
+  return `${day}/${month}/${year}`;
+}
+
+function TeacherCard({
+  teacher,
+  index,
+  onClick,
+}: {
+  teacher: (typeof TEACHERS)[0];
+  index: number;
   onClick: () => void;
 }) {
   return (
@@ -294,10 +309,10 @@ function TeacherCard({
       initial={{ opacity: 0, y: 30, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ 
-        duration: 0.7, 
+      transition={{
+        duration: 0.7,
         ease: "easeOut",
-        delay: (index % 4) * 0.1 // Subtle stagger
+        delay: (index % 4) * 0.1, // Subtle stagger
       }}
       className="group relative mb-4 flex break-inside-avoid flex-col overflow-hidden rounded-[14px] border border-black/5 bg-white shadow-sm transition-all hover:shadow-md md:mb-5 cursor-pointer"
       onClick={onClick}
@@ -309,25 +324,25 @@ function TeacherCard({
           className="h-auto w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]"
           loading={index < 6 ? "eager" : "lazy"}
         />
-        
+
         {/* Hover Overlay - Premium Bottom to Top Reveal */}
         <div className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 transition-opacity duration-400 ease-out group-hover:opacity-100 p-6 z-10">
           <div className="translate-y-4 transition-transform duration-400 ease-out group-hover:translate-y-0">
             <h3 className="font-serif text-xl font-medium text-[#D4A94F] drop-shadow-[0_0_12px_rgba(212,169,79,0.3)]">
               {teacher.name}
             </h3>
-            <p className="mt-1 text-sm text-white">
-              {teacher.designation}
-            </p>
-            {teacher.description && (
-              <p className="mt-3 text-xs italic text-white/80 opacity-0 transition-opacity duration-500 delay-[50ms] group-hover:opacity-100 leading-relaxed">
-                "{teacher.description}"
-              </p>
+            <p className="mt-1 text-sm text-white">{teacher.designation}</p>
+            {(teacher.dob || teacher.oasisId || teacher.teacherId) && (
+              <div className="mt-3 space-y-0.5 text-xs font-light leading-relaxed text-white/80 opacity-0 transition-opacity delay-[50ms] duration-500 group-hover:opacity-100">
+                {teacher.dob && <p>Age: {calculateAge(teacher.dob)}</p>}
+                {teacher.oasisId && <p>OASIS No. {teacher.oasisId}</p>}
+                {teacher.teacherId && <p>TEACHER ID: {teacher.teacherId}</p>}
+              </div>
             )}
           </div>
         </div>
       </div>
-      
+
       {/* Default State Information - Fades slightly out on hover so focus goes to the image */}
       <div className="p-4 sm:p-5 transition-opacity duration-300 group-hover:opacity-40">
         <h3 className="font-serif text-lg text-foreground">{teacher.name}</h3>
@@ -337,7 +352,7 @@ function TeacherCard({
   );
 }
 
-function Lightbox({ teacher, onClose }: { teacher: typeof TEACHERS[0]; onClose: () => void }) {
+function Lightbox({ teacher, onClose }: { teacher: (typeof TEACHERS)[0]; onClose: () => void }) {
   useEffect(() => {
     const originalStyle = window.getComputedStyle(document.body).overflow;
     document.body.style.overflow = "hidden";
@@ -357,7 +372,7 @@ function Lightbox({ teacher, onClose }: { teacher: typeof TEACHERS[0]; onClose: 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 lg:p-8">
       {/* Backdrop */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -365,9 +380,12 @@ function Lightbox({ teacher, onClose }: { teacher: typeof TEACHERS[0]; onClose: 
         className="absolute inset-0 bg-ink/90 backdrop-blur-md cursor-pointer"
         onClick={onClose}
       />
-      
+
       {/* Modal Content */}
-      <motion.div 
+      <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
@@ -375,7 +393,7 @@ function Lightbox({ teacher, onClose }: { teacher: typeof TEACHERS[0]; onClose: 
         className="relative z-10 flex max-h-full w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl md:flex-row cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
-        <button 
+        <button
           onClick={onClose}
           className="absolute right-4 top-4 z-20 flex size-9 items-center justify-center rounded-full bg-black/10 text-black backdrop-blur-md transition-colors hover:bg-black/20 md:right-5 md:top-5"
           aria-label="Close dialog"
@@ -384,31 +402,29 @@ function Lightbox({ teacher, onClose }: { teacher: typeof TEACHERS[0]; onClose: 
         </button>
 
         <div className="relative flex w-full shrink-0 items-center justify-center bg-muted/30 p-4 md:w-1/2 lg:w-3/5 md:p-8">
-          <img 
-            src={teacher.image} 
-            alt={teacher.name} 
+          <img
+            src={teacher.image}
+            alt={teacher.name}
             className="max-h-[50vh] w-auto max-w-full rounded-lg object-contain shadow-sm md:max-h-[75vh]"
           />
         </div>
 
         <div className="flex flex-col justify-center p-6 md:w-1/2 md:p-10 lg:w-2/5">
-          <span className="mb-2 block text-[10px] font-bold tracking-widest text-[#D4A94F] uppercase">
-            {teacher.department || "Faculty Department"}
-          </span>
-          <h2 className="mb-1.5 font-serif text-3xl text-foreground sm:text-4xl">
+          <h2 id="modal-title" className="mb-1.5 font-serif text-3xl text-foreground sm:text-4xl">
             {teacher.name}
           </h2>
-          <p className="mb-6 text-base text-muted-foreground sm:text-lg">
-            {teacher.designation}
-          </p>
-          <div className="h-px w-10 bg-border mb-6"></div>
-          <p className="text-sm font-light italic leading-relaxed text-foreground/80 sm:text-base">
-            "{teacher.description}"
-          </p>
-          {teacher.subject && (
-            <p className="mt-6 text-sm text-muted-foreground">
-              <strong className="font-medium text-foreground">Subject Specialization:</strong> {teacher.subject}
-            </p>
+          <p className="mb-6 text-base text-muted-foreground sm:text-lg">{teacher.designation}</p>
+
+          {(teacher.dob || teacher.oasisId || teacher.teacherId) && (
+            <>
+              <div className="mb-6 h-px w-10 bg-border"></div>
+              <div className="space-y-2 text-sm font-medium text-foreground/80">
+                {teacher.dob && <p>Date of Birth: {formatDob(teacher.dob)}</p>}
+                {teacher.dob && <p>Age: {calculateAge(teacher.dob)}</p>}
+                {teacher.oasisId && <p>OASIS No.: {teacher.oasisId}</p>}
+                {teacher.teacherId && <p>Teacher ID: {teacher.teacherId}</p>}
+              </div>
+            </>
           )}
         </div>
       </motion.div>

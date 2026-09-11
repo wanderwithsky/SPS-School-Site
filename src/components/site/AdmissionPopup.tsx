@@ -20,7 +20,7 @@ export function AdmissionPopup() {
   // Only run the timer if we are exactly on the homepage
   useEffect(() => {
     if (pathname !== "/") return;
-    
+
     const timer = setTimeout(() => setOpen(true), 2000);
     return () => clearTimeout(timer);
   }, [pathname]);
@@ -44,11 +44,14 @@ export function AdmissionPopup() {
             <DialogTitle className="font-serif text-xl font-semibold text-foreground sm:text-2xl">
               Admissions Open 2026-27
             </DialogTitle>
-            <DialogDescription id="admission-popup-desc" className="mt-1 text-sm text-muted-foreground">
+            <DialogDescription
+              id="admission-popup-desc"
+              className="mt-1 text-sm text-muted-foreground"
+            >
               Start your child's journey with Shandilya Public School.
             </DialogDescription>
           </div>
-          
+
           <DialogClose className="absolute right-4 top-4 sm:right-5 sm:top-5 flex h-[38px] w-[38px] sm:h-[40px] sm:w-[40px] items-center justify-center rounded-full border border-border/60 bg-background shadow-sm transition-all duration-300 hover:scale-105 hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary z-50">
             <X className="h-5 w-5 text-foreground/80" />
             <span className="sr-only">Close popup</span>
@@ -56,7 +59,10 @@ export function AdmissionPopup() {
         </DialogHeader>
 
         {/* ---- Single Scrollable Form Container ---- */}
-        <div className="flex-1 overflow-y-auto overflow-x-hidden bg-background" style={{ WebkitOverflowScrolling: "touch" }}>
+        <div
+          className="flex-1 overflow-y-auto overflow-x-hidden bg-background"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
           <iframe
             src={GOOGLE_FORM_URL}
             title="Shandilya Public School Online Admission Form"

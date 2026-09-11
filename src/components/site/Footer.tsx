@@ -78,9 +78,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="text-xs font-bold tracking-[0.2em] text-background uppercase">
-            Reach us
-          </h2>
+          <h2 className="text-xs font-bold tracking-[0.2em] text-background uppercase">Reach us</h2>
           <ul className="mt-4 space-y-3 text-sm">
             <li className="flex gap-3">
               <MapPin className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />

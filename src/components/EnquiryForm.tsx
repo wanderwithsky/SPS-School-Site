@@ -13,7 +13,13 @@ const schema = z.object({
     .string()
     .trim()
     .regex(/^[0-9+\s-]{10,15}$/, "Please enter a valid mobile number"),
-  email: z.string().trim().email("Please enter a valid email").max(255).optional().or(z.literal("")),
+  email: z
+    .string()
+    .trim()
+    .email("Please enter a valid email")
+    .max(255)
+    .optional()
+    .or(z.literal("")),
   current_school: z.string().trim().max(160).optional().or(z.literal("")),
   locality: z.string().trim().max(160).optional().or(z.literal("")),
   message: z.string().trim().max(1000).optional().or(z.literal("")),
@@ -52,6 +58,7 @@ export function EnquiryForm() {
       current_school: v.current_school || null,
       locality: v.locality || null,
       message: v.message || null,
+      source: "Website Form",
     });
     setSubmitting(false);
 

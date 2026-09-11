@@ -7,8 +7,6 @@ import { PhotoSlot } from "@/components/about/PhotoSlot";
 import { SCHOOL } from "@/lib/school";
 import { cn } from "@/lib/utils";
 
-
-
 const TITLE = "About Shandilya Public School | Varanasi";
 const DESC =
   "Learn about Shandilya Public School, Varanasi, its CBSE affiliation, academic journey, educational philosophy, facilities, activities and school community.";
@@ -129,7 +127,10 @@ function WhoWeAre() {
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
         <motion.div {...fadeUp} className="relative">
           {/* Subtle editorial accent */}
-          <div aria-hidden="true" className="absolute -left-3 -top-3 size-20 rounded-full bg-accent/5 blur-2xl" />
+          <div
+            aria-hidden="true"
+            className="absolute -left-3 -top-3 size-20 rounded-full bg-accent/5 blur-2xl"
+          />
           <div className="group overflow-hidden rounded-[24px] border border-border/40 shadow-sm bg-secondary relative z-10">
             <img
               src="https://res.cloudinary.com/zvlxacfu/image/upload/v1788824363/2c0c0ea5-8c6a-4e05-b616-4d4594e7de68.jpg"
@@ -365,7 +366,11 @@ function Facilities() {
 
         <div className="mt-14 grid gap-10 sm:grid-cols-2">
           {FACILITIES.map((f, i) => (
-            <motion.article key={f.title} {...fadeUp} transition={{ ...fadeUp.transition, delay: i * 0.07 }}>
+            <motion.article
+              key={f.title}
+              {...fadeUp}
+              transition={{ ...fadeUp.transition, delay: i * 0.07 }}
+            >
               <PhotoSlot label={f.label} ratio="aspect-[16/10]" />
               <h3 className="mt-5 font-serif text-2xl font-semibold text-foreground">{f.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.text}</p>
@@ -432,40 +437,48 @@ function BeyondAcademics() {
 
 const culturalEvents = [
   {
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824476/fcfb3fd3-c2fb-438f-9da1-c921451933bd.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824476/fcfb3fd3-c2fb-438f-9da1-c921451933bd.jpg",
     title: "Cultural Events",
   },
   {
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824426/e8b22ebc-68cf-4d9c-9c85-f5864bc3ece1.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824426/e8b22ebc-68cf-4d9c-9c85-f5864bc3ece1.jpg",
     title: "Cultural Events",
   },
   {
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824430/7d6b05a6-efee-414e-b110-4d132e17bd65.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824430/7d6b05a6-efee-414e-b110-4d132e17bd65.jpg",
     title: "Cultural Events",
   },
   {
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824418/225a03c9-f103-4362-bf13-8fc2f91cc655.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824418/225a03c9-f103-4362-bf13-8fc2f91cc655.jpg",
     title: "Cultural Events",
   },
   {
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824365/56019fb1-2b5c-44ed-9419-cf2e625a4ebe.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824365/56019fb1-2b5c-44ed-9419-cf2e625a4ebe.jpg",
     title: "Cultural Events",
   },
   {
-    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824449/bd24c7da-d14f-4ff0-8256-52a54fd1ba57.jpg",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824449/bd24c7da-d14f-4ff0-8256-52a54fd1ba57.jpg",
     title: "Cultural Events",
   },
 ];
 
-function GalleryCard({ item, className, ratio }: { item: (typeof culturalEvents)[number]; className?: string; ratio: string }) {
+function GalleryCard({
+  item,
+  className,
+  ratio,
+}: {
+  item: (typeof culturalEvents)[number];
+  className?: string;
+  ratio: string;
+}) {
   return (
-    <div
-      className={cn(
-        "group relative overflow-hidden rounded-2xl",
-        ratio,
-        className,
-      )}
-    >
+    <div className={cn("group relative overflow-hidden rounded-2xl", ratio, className)}>
       {/* Image */}
       <img
         src={item.image}
@@ -499,7 +512,7 @@ function GalleryCard({ item, className, ratio }: { item: (typeof culturalEvents)
 
 function Events() {
   return (
-    <section className="bg-background py-20 sm:py-28">
+    <section id="events" className="bg-background py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <motion.div {...fadeUp} className="max-w-2xl">
           <Eyebrow>Celebrating together</Eyebrow>
@@ -516,14 +529,34 @@ function Events() {
         {/* ---- Top row: 1 large featured + 2 stacked — height-locked on desktop ---- */}
         <div className="mt-14 grid gap-4 sm:gap-5 lg:grid-cols-[1.6fr_1fr] lg:h-[520px]">
           <motion.div {...fadeUp} className="relative min-h-0">
-            <GalleryCard item={culturalEvents[0]} ratio="aspect-[16/10] lg:aspect-auto" className="lg:absolute lg:inset-0" />
+            <GalleryCard
+              item={culturalEvents[0]}
+              ratio="aspect-[16/10] lg:aspect-auto"
+              className="lg:absolute lg:inset-0"
+            />
           </motion.div>
           <div className="grid grid-rows-2 gap-4 sm:gap-5">
-            <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.05 }} className="relative min-h-0">
-              <GalleryCard item={culturalEvents[1]} ratio="aspect-[16/10] lg:aspect-auto" className="lg:absolute lg:inset-0" />
+            <motion.div
+              {...fadeUp}
+              transition={{ ...fadeUp.transition, delay: 0.05 }}
+              className="relative min-h-0"
+            >
+              <GalleryCard
+                item={culturalEvents[1]}
+                ratio="aspect-[16/10] lg:aspect-auto"
+                className="lg:absolute lg:inset-0"
+              />
             </motion.div>
-            <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="relative min-h-0">
-              <GalleryCard item={culturalEvents[2]} ratio="aspect-[16/10] lg:aspect-auto" className="lg:absolute lg:inset-0" />
+            <motion.div
+              {...fadeUp}
+              transition={{ ...fadeUp.transition, delay: 0.1 }}
+              className="relative min-h-0"
+            >
+              <GalleryCard
+                item={culturalEvents[2]}
+                ratio="aspect-[16/10] lg:aspect-auto"
+                className="lg:absolute lg:inset-0"
+              />
             </motion.div>
           </div>
         </div>
@@ -531,7 +564,11 @@ function Events() {
         {/* ---- Bottom row: 3 equal landscape images ---- */}
         <div className="mt-4 grid grid-cols-1 gap-4 sm:mt-5 sm:grid-cols-3 sm:gap-5">
           {culturalEvents.slice(3).map((item, i) => (
-            <motion.div key={i} {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.15 + i * 0.05 }}>
+            <motion.div
+              key={i}
+              {...fadeUp}
+              transition={{ ...fadeUp.transition, delay: 0.15 + i * 0.05 }}
+            >
               <GalleryCard item={item} ratio="aspect-[4/3]" />
             </motion.div>
           ))}
@@ -588,7 +625,10 @@ function Achievements() {
                 <tbody>
                   {RESULTS_2023.map((r) => (
                     <tr key={r.klass} className="border-t border-border">
-                      <th scope="row" className="px-4 py-4 font-serif text-base font-semibold text-foreground">
+                      <th
+                        scope="row"
+                        className="px-4 py-4 font-serif text-base font-semibold text-foreground"
+                      >
                         {r.klass}
                       </th>
                       <td className="px-4 py-4 text-muted-foreground">{r.registered}</td>
@@ -605,7 +645,10 @@ function Achievements() {
             </p>
           </motion.div>
 
-          <motion.ul {...fadeUp} className="grid content-start gap-px overflow-hidden rounded-2xl bg-border">
+          <motion.ul
+            {...fadeUp}
+            className="grid content-start gap-px overflow-hidden rounded-2xl bg-border"
+          >
             {[
               { t: "Academic Excellence", d: "Consistent focus on classroom achievement." },
               { t: "Board Results", d: "CBSE Class X and XII outcomes, published each year." },
@@ -634,31 +677,36 @@ const LEADERSHIP = [
     name: "Er. Arvind Kr. Tiwari",
     role: "Managing Director",
     note: "Guides the school's direction and long-term development.",
-    photo: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823593/915c7797-7788-4c3f-8708-a47a47eed5f9.jpg",
+    photo:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823593/915c7797-7788-4c3f-8708-a47a47eed5f9.jpg",
   },
   {
     name: "Ms. Nutan Tiwari",
     role: "Assistant Director",
     note: "Oversees school administration and operations.",
-    photo: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823626/8993cc89-14bc-4059-b66b-cf84a006bd89.jpg",
+    photo:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823626/8993cc89-14bc-4059-b66b-cf84a006bd89.jpg",
   },
   {
     name: "Mr. Suryansh Tiwari",
     role: "Administrative Director",
     note: "Supports administrative functions across the campus.",
-    photo: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823641/92e32fc1-34b8-4e71-b8c2-d476240e36f6.jpg",
+    photo:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823641/92e32fc1-34b8-4e71-b8c2-d476240e36f6.jpg",
   },
   {
     name: "Ms. Reena Singh",
     role: "Principal",
     note: "Coordinates curriculum delivery and classroom planning.",
-    photo: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823644/3ac54d0a-6d4a-4a91-b3e3-46ca8b45139f.jpg",
+    photo:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823644/3ac54d0a-6d4a-4a91-b3e3-46ca8b45139f.jpg",
   },
   {
     name: "Ms. Gita Srivastava",
     role: "Accounts Administrator",
     note: "Manages the school office and accounts.",
-    photo: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823652/ffbb8f15-c287-4264-ba4c-d411ca1fcda0.jpg",
+    photo:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788823652/ffbb8f15-c287-4264-ba4c-d411ca1fcda0.jpg",
   },
 ];
 
@@ -747,7 +795,6 @@ function LeaderPhoto({ person }: { person: (typeof LEADERSHIP)[number] }) {
     </div>
   );
 }
-
 
 /* ---------------- Manager's message ---------------- */
 

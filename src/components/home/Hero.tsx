@@ -4,15 +4,6 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { SocialRail } from "./SocialRail";
 
-import slide0 from "@/assets/hero/Shandilya-Public-School-HeroSection.jpeg";
-import slide1 from "@/assets/hero/Shandilya-Public-School-HeroSection1.jpeg";
-import slide2 from "@/assets/hero/Shandilya-Public-School-HeroSection2.jpeg";
-import slide3 from "@/assets/hero/Shandilya-Public-School-HeroSection3.jpeg";
-import slide4 from "@/assets/hero/Shandilya-Public-School-HeroSection4.jpeg";
-import slide5 from "@/assets/hero/Shandilya-Public-School-HeroSection5.jpeg";
-import slide6 from "@/assets/hero/Shandilya-Public-School-HeroSection6.jpeg";
-import slide7 from "@/assets/hero/Shandilya-Public-School-HeroSection7.jpeg";
-
 type Slide = {
   image: string;
   alt: string;
@@ -25,7 +16,8 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
-    image: slide0,
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824486/f79ba866-40e1-4d5d-94cb-75c1146e1505.jpg",
     alt: "Students and teachers of Shandilya Public School with medals and trophies at a prize ceremony",
     fit: "cover",
     eyebrow: "Welcome to Shandilya",
@@ -34,7 +26,7 @@ const SLIDES: Slide[] = [
     cta: { label: "Explore our school", hash: "welcome" },
   },
   {
-    image: slide1,
+    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788826064/IMG-20260829-WA0011.jpg",
     alt: "Students receiving certificates in front of the Shandilya Public School banner",
     fit: "cover",
     eyebrow: "Learning that inspires",
@@ -43,7 +35,7 @@ const SLIDES: Slide[] = [
     cta: { label: "Explore academics", hash: "journey" },
   },
   {
-    image: slide7,
+    image: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788826061/IMG-20260829-WA0010.jpg",
     alt: "Students practising yoga together in the Shandilya Public School courtyard",
     fit: "cover",
     eyebrow: "Play. Perform. Grow.",
@@ -52,25 +44,29 @@ const SLIDES: Slide[] = [
     cta: { label: "Campus life", hash: "life" },
   },
   {
-    image: slide2,
-    alt: "CBSE Class XII Commerce school topper Shresth Pathak, session 2025-26",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824515/e2a55f19-5f1c-4127-a9f8-45f520e539fb.jpg",
+    alt: "School event and campus ceremony at Shandilya Public School",
     fit: "contain",
-    eyebrow: "Proud achievement",
-    title: "Our Toppers. Our Pride.",
-    description: "Celebrating the dedication and achievements of our Class XII Commerce students.",
+    eyebrow: "Celebrating Together",
+    title: "Moments That Bring Us Together.",
+    description:
+      "From celebrations and special occasions to meaningful moments on campus, every event becomes a part of the Shandilya journey.",
     cta: { label: "See achievements", hash: "achievements" },
   },
   {
-    image: slide3,
-    alt: "CBSE Class XII Commerce toppers list for the 2025-26 session",
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1789105798/4447360d-d180-4aca-abf4-fa2556e493e5.jpg",
+    alt: "Students reading and studying together in the school library",
     fit: "contain",
-    eyebrow: "Class XII Commerce",
-    title: "Results that reflect effort.",
-    description: "Our Commerce students of 2025-26, celebrated for their board results.",
+    eyebrow: "A Space to Explore",
+    title: "Where Curiosity Finds a Place.",
+    description: "A quiet space to read, discover new ideas and learn beyond the classroom.",
     cta: { label: "See achievements", hash: "achievements" },
   },
   {
-    image: slide4,
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824578/d71df88a-cb50-4b4f-a06a-5c72d500c57a.jpg",
     alt: "School topper Class XII 2025-26 congratulations poster",
     fit: "contain",
     eyebrow: "School topper",
@@ -79,7 +75,8 @@ const SLIDES: Slide[] = [
     cta: { label: "See achievements", hash: "achievements" },
   },
   {
-    image: slide5,
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824573/28b7163c-566e-4f1d-a940-3a80e3fa0b60.jpg",
     alt: "CBSE Class XII Science toppers of 2025-26 led by Prakriti Verma",
     fit: "contain",
     eyebrow: "Class XII Science",
@@ -88,7 +85,8 @@ const SLIDES: Slide[] = [
     cta: { label: "See achievements", hash: "achievements" },
   },
   {
-    image: slide6,
+    image:
+      "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824550/0b165d87-86ab-47cd-80b1-a634da102bd1.jpg",
     alt: "Admissions open for 2026-27 at Shandilya Public School, Playgroup to Class IX and XI",
     fit: "contain",
     eyebrow: "Admissions open 2026-27",
@@ -267,21 +265,21 @@ export function Hero() {
       {/* Scroll for more indicator */}
       <a
         href="#welcome"
-        className="absolute bottom-24 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-1.5 text-white/70 transition-colors hover:text-white"
+        className="absolute bottom-24 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-2 text-white/70 transition-colors hover:text-white"
         aria-label="Scroll for more"
       >
-        <span className="text-[9px] font-semibold tracking-[0.35em] uppercase">
+        <span className="text-[13.5px] font-semibold tracking-[0.35em] uppercase">
           Scroll for more
         </span>
         <motion.span
           animate={reduced ? {} : { y: [0, 5, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ChevronDown className="size-4" aria-hidden="true" />
+          <ChevronDown className="size-6" aria-hidden="true" />
         </motion.span>
       </a>
 
-      {/* Controls bar (unchanged) */}
+      {/* Controls bar (unchanged except removed dash pagination) */}
       <div className="absolute inset-x-0 bottom-0 z-20 px-5 pb-6 sm:px-14 sm:pr-44 lg:px-24 lg:pr-56">
         <div className="flex items-center justify-between gap-6 border-t border-white/15 pt-5">
           <span className="font-serif text-sm text-white/80 tabular-nums">
@@ -289,24 +287,6 @@ export function Hero() {
             <span className="mx-1.5 text-white/35">/</span>
             {String(SLIDES.length).padStart(2, "0")}
           </span>
-
-          <div className="flex flex-1 items-center justify-center gap-2">
-            {SLIDES.map((s, i) => (
-              <button
-                key={s.image}
-                type="button"
-                onClick={() => {
-                  setIndex(i);
-                  hold();
-                }}
-                aria-label={`Show slide ${i + 1}`}
-                aria-current={i === index}
-                className={`h-[3px] rounded-full transition-all duration-500 ${
-                  i === index ? "w-10 bg-accent" : "w-4 bg-white/35 hover:bg-white/70"
-                }`}
-              />
-            ))}
-          </div>
 
           <div className="flex items-center gap-2">
             <button
