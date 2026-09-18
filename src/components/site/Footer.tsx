@@ -1,7 +1,7 @@
 const logoUrl = "/favicon.png";
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { SCHOOL, telHref } from "@/lib/school";
+import { SCHOOL, telHref, waHref } from "@/lib/school";
 
 export function Footer() {
   return (
@@ -60,18 +60,18 @@ export function Footer() {
           </h2>
           <ul className="mt-4 space-y-2.5 text-sm">
             <li>
-              <Link to="/" hash="journey" className="hover:text-background">
+              <a href={waHref} target="_blank" rel="noopener noreferrer" className="hover:text-background">
                 Curriculum &amp; syllabus
-              </Link>
+              </a>
             </li>
             <li>
-              <Link to="/admissions/apply" className="hover:text-background">
+              <Link to="/fee-structure" className="hover:text-background">
                 Fee structure
               </Link>
             </li>
             <li>
-              <Link to="/" hash="disclosure" className="hover:text-background">
-                Mandatory public disclosure
+              <Link to="/events" target="_blank" rel="noopener noreferrer" className="hover:text-background">
+                Events &amp; Activities
               </Link>
             </li>
           </ul>

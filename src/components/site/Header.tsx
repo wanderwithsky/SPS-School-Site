@@ -79,6 +79,14 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
                     ))}
                   </div>
                 </div>
+              ) : item.label === "Contact" ? (
+                <Link
+                  key={item.label}
+                  to={item.to!}
+                  className="ml-3 rounded-full bg-primary px-5 py-2.5 text-[12.5px] font-bold tracking-[0.1em] text-primary-foreground uppercase shadow-md transition duration-300 hover:scale-[1.04] hover:brightness-110"
+                >
+                  {item.label}
+                </Link>
               ) : (
                 <Link
                   key={item.label}
@@ -89,12 +97,6 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
                 </Link>
               ),
             )}
-            <Link
-              to="/admissions/apply"
-              className="ml-3 rounded-full bg-primary px-5 py-2.5 text-[12.5px] font-bold tracking-[0.1em] text-primary-foreground uppercase shadow-md transition duration-300 hover:scale-[1.04] hover:brightness-110"
-            >
-              Apply now
-            </Link>
           </nav>
 
           <button
@@ -112,15 +114,25 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
       {open && (
         <div className="max-h-[calc(100dvh-8rem)] overflow-y-auto border-t border-border bg-background px-4 pt-2 pb-8 lg:hidden">
           {NAV.map((item) => (
-            <div key={item.label} className="border-b border-border/70 py-1">
+            <div key={item.label} className={item.label === "Contact" ? "mt-5" : "border-b border-border/70 py-1"}>
               {item.to ? (
-                <Link
-                  to={item.to}
-                  onClick={() => setOpen(false)}
-                  className="block px-1 py-3 text-sm font-bold tracking-wide text-foreground uppercase"
-                >
-                  {item.label}
-                </Link>
+                item.label === "Contact" ? (
+                  <Link
+                    to={item.to}
+                    onClick={() => setOpen(false)}
+                    className="block rounded-full bg-primary px-5 py-3.5 text-center text-sm font-bold tracking-wide text-primary-foreground uppercase"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <Link
+                    to={item.to}
+                    onClick={() => setOpen(false)}
+                    className="block px-1 py-3 text-sm font-bold tracking-wide text-foreground uppercase"
+                  >
+                    {item.label}
+                  </Link>
+                )
               ) : (
                 <details>
                   <summary className="cursor-pointer list-none px-1 py-3 text-sm font-bold tracking-wide text-foreground uppercase">
@@ -153,13 +165,6 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
               )}
             </div>
           ))}
-          <Link
-            to="/admissions/apply"
-            onClick={() => setOpen(false)}
-            className="mt-5 block rounded-full bg-primary px-5 py-3.5 text-center text-sm font-bold tracking-wide text-primary-foreground uppercase"
-          >
-            Apply now
-          </Link>
         </div>
       )}
     </header>

@@ -70,10 +70,7 @@ function AboutPage() {
       <AboutHero />
       <WhoWeAre />
       <Identity />
-      <Philosophy />
-      <Journey />
       <Facilities />
-      <BeyondAcademics />
       <Events />
       <Achievements />
       <Leadership />
@@ -206,127 +203,6 @@ function Identity() {
   );
 }
 
-/* ---------------- Philosophy ---------------- */
-
-const PILLARS = [
-  { key: "Learn", text: "Strong academic foundations built on competency-based learning." },
-  { key: "Explore", text: "Curiosity and practical learning across labs and classrooms." },
-  { key: "Create", text: "Art, music, culture and creativity as everyday expression." },
-  { key: "Grow", text: "Confidence, discipline, values and character over the years." },
-];
-
-function Philosophy() {
-  return (
-    <section className="bg-background py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl px-5 sm:px-6">
-        <motion.div {...fadeUp} className="max-w-2xl">
-          <Eyebrow>Our philosophy</Eyebrow>
-          <h2 className="mt-5 font-serif text-3xl leading-tight font-semibold text-foreground sm:text-4xl lg:text-[2.75rem]">
-            Learning. Character.
-            <br />
-            Confidence.
-          </h2>
-          <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-            Education at Shandilya is intended to be joyful and holistic — an academic foundation
-            supported by practical learning, creativity, physical development and a steady sense of
-            values and responsibility.
-          </p>
-        </motion.div>
-
-        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl bg-border sm:grid-cols-2 lg:grid-cols-4">
-          {PILLARS.map((p, i) => (
-            <motion.div
-              key={p.key}
-              {...fadeUp}
-              transition={{ ...fadeUp.transition, delay: i * 0.08 }}
-              className="bg-background p-8 transition-colors duration-300 hover:bg-secondary"
-            >
-              <span className="text-[11px] font-semibold tracking-[0.28em] text-accent-foreground/60 uppercase">
-                0{i + 1}
-              </span>
-              <h3 className="mt-4 font-serif text-2xl font-semibold text-primary">{p.key}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.text}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- Journey ---------------- */
-
-const STAGES = [
-  {
-    name: "Pre-Primary",
-    text: "First steps into school life, with play, language and early number sense in a warm, secure setting.",
-  },
-  {
-    name: "Primary",
-    text: "Foundational literacy and numeracy, supported by activity-based learning and creative expression.",
-  },
-  {
-    name: "Middle School",
-    text: "Broader subject learning, practical work in the labs and steadily growing independence.",
-  },
-  {
-    name: "Secondary",
-    text: "Focused preparation for the CBSE Class X examination alongside sports and co-curricular life.",
-  },
-  {
-    name: "Senior Secondary",
-    text: "Stream-based study in Science, Commerce or Humanities, leading towards higher education pathways.",
-  },
-];
-
-function Journey() {
-  return (
-    <section className="border-y border-border bg-secondary py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl px-5 sm:px-6">
-        <motion.div {...fadeUp} className="max-w-2xl">
-          <Eyebrow>Academic journey</Eyebrow>
-          <h2 className="mt-5 font-serif text-3xl leading-tight font-semibold text-foreground sm:text-4xl lg:text-[2.75rem]">
-            From First Steps
-            <br />
-            to Future Pathways
-          </h2>
-        </motion.div>
-
-        <ol className="mt-14 space-y-0 border-l border-border pl-6 sm:pl-10">
-          {STAGES.map((s, i) => (
-            <motion.li
-              key={s.name}
-              {...fadeUp}
-              transition={{ ...fadeUp.transition, delay: i * 0.06 }}
-              className="relative pb-12 last:pb-0"
-            >
-              <span
-                aria-hidden="true"
-                className="absolute top-2 -left-[1.9rem] size-3 rounded-full border-2 border-primary bg-background sm:-left-[2.9rem]"
-              />
-              <h3 className="font-serif text-2xl font-semibold text-foreground">{s.name}</h3>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                {s.text}
-              </p>
-              {i === STAGES.length - 1 && (
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {["Science", "Commerce", "Humanities"].map((st) => (
-                    <span
-                      key={st}
-                      className="rounded-full border border-primary/30 px-4 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-primary uppercase"
-                    >
-                      {st}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </motion.li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------- Facilities ---------------- */
 
@@ -334,21 +210,25 @@ const FACILITIES = [
   {
     title: "Smart Classrooms",
     label: "Smart classroom image",
+    src: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824357/5a6bbb6c-35e1-4bb5-89a5-29b5da7f04df.jpg",
     text: "Classrooms supported by smart-class audio and video teaching aids.",
   },
   {
     title: "Laboratories",
     label: "Laboratory image",
+    src: "https://res.cloudinary.com/zvlxacfu/image/upload/v1789721749/b27b094a-574e-400c-8e5a-a82e72e2659a.jpg",
     text: "Computer, Science and Mathematics laboratories for hands-on learning.",
   },
   {
     title: "Library",
     label: "Library image",
+    src: "https://res.cloudinary.com/zvlxacfu/image/upload/v1789105798/4447360d-d180-4aca-abf4-fa2556e493e5.jpg",
     text: "A well-stocked library that encourages reading and independent study.",
   },
   {
     title: "Sports & Physical Education",
     label: "Sports image",
+    src: "https://res.cloudinary.com/zvlxacfu/image/upload/v1788824712/05893804-80a9-4206-bdfc-4728cb174a64.jpg",
     text: "Indoor and outdoor games with health and physical education for all classes.",
   },
 ];
@@ -371,7 +251,7 @@ function Facilities() {
               {...fadeUp}
               transition={{ ...fadeUp.transition, delay: i * 0.07 }}
             >
-              <PhotoSlot label={f.label} ratio="aspect-[16/10]" />
+              <PhotoSlot label={f.label} src={f.src} ratio="aspect-[16/10]" />
               <h3 className="mt-5 font-serif text-2xl font-semibold text-foreground">{f.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.text}</p>
             </motion.article>
@@ -382,56 +262,6 @@ function Facilities() {
   );
 }
 
-/* ---------------- Beyond academics ---------------- */
-
-const LIFE = [
-  { title: "Sports", text: "Indoor and outdoor games through the school year." },
-  { title: "Music & Dance", text: "Rhythm, performance and confidence on stage." },
-  { title: "Art & Craft", text: "Making, drawing and hands-on creative work." },
-  { title: "Cultural Activities", text: "Expression rooted in our shared traditions." },
-  { title: "Co-curricular Activities", text: "Learning that continues past the timetable." },
-  { title: "Celebrations", text: "Days the whole school shares together." },
-];
-
-function BeyondAcademics() {
-  return (
-    <section className="bg-ink py-20 text-ink-foreground sm:py-28">
-      <div className="mx-auto max-w-6xl px-5 sm:px-6">
-        <motion.div {...fadeUp} className="max-w-2xl">
-          <p className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.3em] text-accent uppercase">
-            <span aria-hidden="true" className="h-px w-8 bg-accent" />
-            Beyond academics
-          </p>
-          <h2 className="mt-5 font-serif text-3xl leading-tight font-semibold sm:text-4xl lg:text-[2.75rem]">
-            A School Life Full of
-            <br />
-            Ideas, Energy & Expression
-          </h2>
-        </motion.div>
-
-        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {LIFE.map((l, i) => (
-            <motion.article
-              key={l.title}
-              {...fadeUp}
-              transition={{ ...fadeUp.transition, delay: i * 0.06 }}
-            >
-              <PhotoSlot
-                label={`${l.title} image`}
-                ratio="aspect-[4/3]"
-                className="border-ink-foreground/15 bg-ink-foreground/5"
-              />
-              <h3 className="mt-4 text-[12.5px] font-bold tracking-[0.18em] uppercase">
-                {l.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-foreground/70">{l.text}</p>
-            </motion.article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------- Events ---------------- */
 
@@ -803,7 +633,7 @@ function ManagerMessage() {
     <section className="border-y border-border bg-secondary py-20 sm:py-28">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-6 lg:grid-cols-[0.85fr_1fr] lg:gap-16">
         <motion.div {...fadeUp}>
-          <PhotoSlot label="Manager portrait" ratio="aspect-[4/5]" />
+          <PhotoSlot label="Manager portrait" src="/images/manager_portrait.png" ratio="aspect-[4/5]" />
         </motion.div>
         <motion.div {...fadeUp}>
           <Eyebrow>Manager's message</Eyebrow>
@@ -891,7 +721,7 @@ function Campus() {
           <Eyebrow>Campus & infrastructure</Eyebrow>
         </motion.div>
         <motion.div {...fadeUp} className="mt-8">
-          <PhotoSlot label="Campus & infrastructure image" ratio="aspect-[16/9]" />
+          <PhotoSlot label="Campus & infrastructure image" src="https://res.cloudinary.com/zvlxacfu/image/upload/v1789721340/76c5ee6e-1643-4660-adfc-fe448dd84c44.jpg" ratio="aspect-[16/9]" />
         </motion.div>
         <p className="mt-6 text-[11px] font-semibold tracking-[0.22em] text-muted-foreground uppercase">
           Officially published infrastructure information

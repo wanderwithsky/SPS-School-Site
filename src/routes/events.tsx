@@ -342,7 +342,7 @@ function EventNavigation({ activeSection }: { activeSection: string }) {
   };
 
   return (
-    <div className="sticky top-[64px] z-40 bg-background/95 backdrop-blur-md border-b border-border w-full shadow-sm">
+    <div className="sticky top-[100px] z-40 bg-background/95 backdrop-blur-md border-b border-border w-full shadow-sm">
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-12">
         {canScrollLeft && (
           <button

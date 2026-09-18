@@ -39,9 +39,7 @@ export function TopRibbon() {
           <WhatsAppGlyph className="size-3.5" />
           {RIBBON.whatsapp}
         </a>
-        <Link to="/contact" className={`${linkCls} hidden md:flex`}>
-          Contact
-        </Link>
+
 
         <button
           type="button"

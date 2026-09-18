@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import welcomePhoto from "@/assets/welcome/chairman.png";
 import {
@@ -399,6 +399,8 @@ export function Journey() {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [showStreams, setShowStreams] = useState(false);
+  const [direction, setDirection] = useState(1);
+  const prevIndex = useRef(0);
 
   // Map the 300vh scroll distance to the 5 active stages
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
@@ -409,6 +411,11 @@ export function Journey() {
     const sections = ACADEMIC_JOURNEY.length;
     let idx = Math.floor(stageProgress * sections);
     if (idx >= sections) idx = sections - 1;
+
+    if (idx !== prevIndex.current) {
+      setDirection(idx > prevIndex.current ? 1 : -1);
+      prevIndex.current = idx;
+    }
 
     setActiveIndex(idx);
     setShowStreams(latest > 0.9);
@@ -430,161 +437,249 @@ export function Journey() {
       id="journey"
       className="relative bg-foreground h-[300vh] w-full max-w-full overflow-x-clip"
     >
-      <div className="sticky top-[100px] h-[calc(100vh-100px)] lg:h-[84vh] w-full flex flex-col py-8 lg:py-12">
-        {/* Zone 1: Intro Header */}
+      {/* DESKTOP LAYOUT (Hidden on mobile) */}
+      <div className="hidden md:block sticky top-[100px] h-[calc(100vh-100px)] lg:h-[84vh] w-full py-8 lg:py-12">
+        <div className="h-full w-full flex flex-col">
+          {/* Zone 1: Intro Header */}
+          <motion.div
+            style={{ opacity: headerOpacity, y: headerY }}
+            className="w-full max-w-7xl mx-auto px-5 text-center sm:px-6 lg:px-8 lg:text-left shrink-0 pointer-events-none"
+          >
+            <SectionHeading
+              light
+              eyebrow="Academic journey"
+              title="From first steps to Class XII"
+              intro="A continuous path through school, with the right emphasis at every stage."
+            />
+          </motion.div>
+
+          {/* Zone 2: Roadmap Interface */}
+          <motion.div
+            style={{ y: roadmapY }}
+            className="flex-1 w-full max-w-7xl mx-auto flex flex-col lg:flex-row px-5 sm:px-6 lg:px-8 gap-8 sm:gap-12 lg:gap-20 mt-6 lg:mt-8"
+          >
+            {/* Left Side: Progress Roadmap */}
+            <div className="relative flex flex-col w-full lg:w-1/3 justify-center border-l-2 border-white/10 pl-5 sm:pl-8 py-2 shrink-0">
+              {/* The active glow bar moving down */}
+              <div
+                className="absolute left-[-2px] top-0 w-[2px] bg-gradient-to-b from-[#D4A94F] to-transparent transition-all duration-700 ease-out"
+                style={{ height: `${((activeIndex + 1) / ACADEMIC_JOURNEY.length) * 100}%` }}
+              />
+
+              <div className="flex flex-col gap-6 sm:gap-8 lg:gap-12">
+                {ACADEMIC_JOURNEY.map((stage, idx) => {
+                  const isActive = idx === activeIndex;
+                  const dist = Math.abs(idx - activeIndex);
+
+                  return (
+                    <div key={stage.id} className="relative py-1">
+                      {/* Node Dot */}
+                      <div
+                        className={`absolute -left-[26px] sm:-left-[39px] top-1/2 -translate-y-1/2 size-2.5 sm:size-3.5 rounded-full border-2 transition-all duration-500 ${
+                          isActive
+                            ? "border-[#D4A94F] bg-[#D4A94F] scale-[1.3] shadow-[0_0_12px_rgba(212,169,79,0.5)]"
+                            : "border-white/20 bg-foreground"
+                        }`}
+                      />
+
+                      <h3
+                        className="font-serif text-lg sm:text-xl lg:text-2xl text-[#fdfdfd] transition-all duration-500 origin-left"
+                        style={{
+                          transform: isActive
+                            ? "scale(1)"
+                            : dist === 1
+                              ? "scale(0.92)"
+                              : "scale(0.86)",
+                          opacity: 1,
+                        }}
+                      >
+                        {stage.title}
+                      </h3>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right Side: Active Content & Image */}
+            <div className="w-full lg:flex-1 flex flex-col justify-center items-start shrink-0">
+              <AnimatePresence mode="wait">
+                {!showStreams ? (
+                  <motion.div
+                    key={activeStage.id}
+                    initial={{ scale: 0.96, y: 12 }}
+                    animate={{ scale: 1, y: 0 }}
+                    exit={{ scale: 0.96, y: -12 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="flex flex-col gap-5 sm:gap-6 w-full max-w-xl"
+                  >
+                    <div className="flex flex-col">
+                      <span className="text-[11px] sm:text-sm font-semibold tracking-widest text-[#D4A94F] uppercase mb-1 drop-shadow-sm">
+                        {activeStage.classes}
+                      </span>
+                      <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-white mb-2 sm:mb-3">
+                        {activeStage.title}
+                      </h2>
+                      <p className="text-sm sm:text-base text-white leading-relaxed">
+                        {activeStage.desc}
+                      </p>
+                    </div>
+
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.35 }}
+                      className="relative mt-2 overflow-hidden rounded-[18px] sm:rounded-[22px] shadow-xl border border-white/10 w-full max-w-[560px] aspect-[4/3] sm:aspect-[3/2] lg:h-[340px]"
+                    >
+                      <img
+                        src={activeStage.img}
+                        alt={activeStage.title}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.3)] pointer-events-none" />
+                    </motion.div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="streams"
+                    initial={{ scale: 0.96, y: 12 }}
+                    animate={{ scale: 1, y: 0 }}
+                    exit={{ scale: 0.96, y: -12 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="flex flex-col gap-6 sm:gap-8 w-full max-w-xl"
+                  >
+                    <div className="flex flex-col">
+                      <span className="text-[11px] sm:text-sm font-semibold tracking-widest text-[#D4A94F] uppercase mb-1 drop-shadow-sm">
+                        CHOOSE YOUR PATH
+                      </span>
+                      <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-white mb-2 sm:mb-3">
+                        Senior Secondary Streams
+                      </h2>
+                      <p className="text-sm sm:text-base text-white leading-relaxed">
+                        Specialized pathways designed to build deep expertise and prepare students for
+                        their career goals.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                      {activeStage.streams?.map((stream) => (
+                        <div
+                          key={stream.id}
+                          className="p-4 sm:p-5 rounded-2xl border border-white/10 bg-white/5"
+                        >
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <h4 className="font-serif text-lg sm:text-xl text-[#D4A94F]">
+                              {stream.name}
+                            </h4>
+                            {stream.options.length > 0 && (
+                              <div className="flex gap-2 text-xs sm:text-sm text-white">
+                                {stream.options.map((opt) => (
+                                  <span key={opt} className="px-2 py-1 bg-white/10 rounded-md">
+                                    {opt}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                          <p className="mt-2 text-sm text-white">{stream.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* MOBILE LAYOUT (Hidden on desktop) */}
+      <div className="md:hidden sticky top-0 h-[100svh] w-full flex flex-col px-4 pt-[80px] pb-[80px] overflow-hidden pointer-events-none">
+        {/* Intro Header */}
         <motion.div
           style={{ opacity: headerOpacity, y: headerY }}
-          className="w-full max-w-7xl mx-auto px-5 text-center sm:px-6 lg:px-8 lg:text-left shrink-0 pointer-events-none"
+          className="absolute top-[80px] inset-x-4 text-center z-10"
         >
-          <SectionHeading
-            light
-            eyebrow="Academic journey"
-            title="From first steps to Class XII"
-            intro="A continuous path through school, with the right emphasis at every stage."
-          />
+          <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-[#D4A94F]">
+            Academic journey
+          </p>
+          <h2 className="mt-2.5 font-serif text-[26px] leading-[1.15] font-semibold text-white">
+            From first steps to Class XII
+          </h2>
+          <p className="mt-2.5 text-[14px] leading-relaxed text-white/75">
+            A continuous path through school, with the right emphasis at every stage.
+          </p>
         </motion.div>
 
-        {/* Zone 2: Roadmap Interface */}
-        <motion.div
-          style={{ y: roadmapY }}
-          className="flex-1 w-full max-w-7xl mx-auto flex flex-col lg:flex-row px-5 sm:px-6 lg:px-8 gap-8 sm:gap-12 lg:gap-20 mt-6 lg:mt-8"
-        >
-          {/* Left Side: Progress Roadmap */}
-          <div className="relative flex flex-col w-full lg:w-1/3 justify-center border-l-2 border-white/10 pl-5 sm:pl-8 py-2 shrink-0">
-            {/* The active glow bar moving down */}
-            <div
-              className="absolute left-[-2px] top-0 w-[2px] bg-gradient-to-b from-[#D4A94F] to-transparent transition-all duration-700 ease-out"
-              style={{ height: `${((activeIndex + 1) / ACADEMIC_JOURNEY.length) * 100}%` }}
-            />
-
-            <div className="flex flex-col gap-6 sm:gap-8 lg:gap-12">
-              {ACADEMIC_JOURNEY.map((stage, idx) => {
-                const isActive = idx === activeIndex;
-                const isPassed = idx < activeIndex;
-                const dist = Math.abs(idx - activeIndex);
-
-                return (
-                  <div key={stage.id} className="relative py-1">
-                    {/* Node Dot */}
-                    <div
-                      className={`absolute -left-[26px] sm:-left-[39px] top-1/2 -translate-y-1/2 size-2.5 sm:size-3.5 rounded-full border-2 transition-all duration-500 ${
-                        isActive
-                          ? "border-[#D4A94F] bg-[#D4A94F] scale-[1.3] shadow-[0_0_12px_rgba(212,169,79,0.5)]"
-                          : "border-white/20 bg-foreground"
-                      }`}
-                    />
-
-                    <h3
-                      className="font-serif text-lg sm:text-xl lg:text-2xl text-[#fdfdfd] transition-all duration-500 origin-left"
-                      style={{
-                        transform: isActive
-                          ? "scale(1)"
-                          : dist === 1
-                            ? "scale(0.92)"
-                            : "scale(0.86)",
-                        opacity: 1,
-                      }}
-                    >
-                      {stage.title}
-                    </h3>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Right Side: Active Content & Image */}
-          <div className="w-full lg:flex-1 flex flex-col justify-center items-start shrink-0">
-            <AnimatePresence mode="wait">
-              {!showStreams ? (
-                <motion.div
-                  key={activeStage.id}
-                  initial={{ scale: 0.96, y: 12 }}
-                  animate={{ scale: 1, y: 0 }}
-                  exit={{ scale: 0.96, y: -12 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="flex flex-col gap-5 sm:gap-6 w-full max-w-xl"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[11px] sm:text-sm font-semibold tracking-widest text-[#D4A94F] uppercase mb-1 drop-shadow-sm">
-                      {activeStage.classes}
-                    </span>
-                    <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-white mb-2 sm:mb-3">
-                      {activeStage.title}
-                    </h2>
-                    <p className="text-sm sm:text-base text-white leading-relaxed">
-                      {activeStage.desc}
-                    </p>
-                  </div>
-
-                  {/* Featured Image - Opacity is ONLY applied here */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.35 }}
-                    className="relative mt-2 overflow-hidden rounded-[18px] sm:rounded-[22px] shadow-xl border border-white/10 w-full max-w-[560px] aspect-[4/3] sm:aspect-[3/2] lg:h-[340px]"
-                  >
-                    <img
-                      src={activeStage.img}
-                      alt={activeStage.title}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.3)] pointer-events-none" />
-                  </motion.div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="streams"
-                  initial={{ scale: 0.96, y: 12 }}
-                  animate={{ scale: 1, y: 0 }}
-                  exit={{ scale: 0.96, y: -12 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="flex flex-col gap-6 sm:gap-8 w-full max-w-xl"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[11px] sm:text-sm font-semibold tracking-widest text-[#D4A94F] uppercase mb-1 drop-shadow-sm">
-                      CHOOSE YOUR PATH
-                    </span>
-                    <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-white mb-2 sm:mb-3">
-                      Senior Secondary Streams
-                    </h2>
-                    <p className="text-sm sm:text-base text-white leading-relaxed">
-                      Specialized pathways designed to build deep expertise and prepare students for
-                      their career goals.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col gap-4">
-                    {activeStage.streams?.map((stream) => (
-                      <div
-                        key={stream.id}
-                        className="p-4 sm:p-5 rounded-2xl border border-white/10 bg-white/5"
-                      >
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                          <h4 className="font-serif text-lg sm:text-xl text-[#D4A94F]">
-                            {stream.name}
-                          </h4>
-                          {stream.options.length > 0 && (
-                            <div className="flex gap-2 text-xs sm:text-sm text-white">
-                              {stream.options.map((opt) => (
-                                <span key={opt} className="px-2 py-1 bg-white/10 rounded-md">
-                                  {opt}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                        <p className="mt-2 text-sm text-white">{stream.desc}</p>
+        {/* Content Slides */}
+        <div className="relative w-full h-full flex flex-col justify-center items-center pointer-events-auto">
+          <AnimatePresence mode="wait" custom={direction}>
+             <motion.div
+               key={activeIndex}
+               custom={direction}
+               variants={{
+                 enter: (dir: number) => ({
+                   y: dir > 0 ? 50 : -50,
+                   opacity: 0,
+                 }),
+                 center: {
+                   y: 0,
+                   opacity: 1,
+                 },
+                 exit: (dir: number) => ({
+                   y: dir > 0 ? -50 : 50,
+                   opacity: 0,
+                 }),
+               }}
+               initial="enter"
+               animate="center"
+               exit="exit"
+               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+               className="absolute inset-0 flex flex-col justify-center items-center text-center"
+             >
+                <span className="block text-[11px] font-semibold tracking-widest text-[#D4A94F] uppercase mb-1.5">
+                  {activeStage.classes}
+                </span>
+                <h3 className="font-serif text-[26px] leading-tight text-white mb-2.5">
+                  {activeStage.title}
+                </h3>
+                <p className="text-[14px] text-white/90 leading-relaxed mb-4 px-2">
+                  {activeStage.desc}
+                </p>
+                
+                <div className="w-[calc(100vw-32px)] max-w-[380px] overflow-hidden rounded-[14px] shrink-0">
+                  <img 
+                    src={activeStage.img}
+                    alt={activeStage.title}
+                    className="w-full aspect-[16/9] object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                
+                {/* Streams for Senior Secondary */}
+                {activeStage.streams && (
+                  <div className="mt-3 flex flex-col gap-2 text-left w-[calc(100vw-32px)] max-w-[380px]">
+                    {activeStage.streams.map((stream) => (
+                      <div key={stream.id} className="px-3 py-2 rounded-[10px] border border-white/10 bg-white/5 flex justify-between items-center">
+                        <h5 className="font-serif text-[14px] text-[#D4A94F] leading-none">{stream.name}</h5>
+                        {stream.options.length > 0 && (
+                          <div className="flex gap-1 text-[9px] text-white">
+                            {stream.options.map((opt) => (
+                              <span key={opt} className="px-1.5 py-0.5 bg-white/10 rounded-sm">
+                                {opt}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
+                )}
+             </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );
@@ -593,21 +688,43 @@ export function Journey() {
 /* ---------------- Section 6: facilities ---------------- */
 
 const FACILITIES = [
-  { t: "Smart classrooms", i: MonitorSmartphone, desc: "Technology and digital learning" },
-  { t: "Computer lab", i: Cpu, desc: "Technology and digital learning" },
-  { t: "Science lab", i: FlaskConical, desc: "Explore. Experiment. Discover." },
-  { t: "Mathematics lab", i: Sigma, desc: "Building logical thinking" },
-  { t: "Library", i: Library, desc: "Read. Explore. Imagine." },
-  { t: "Sports", i: Trophy, desc: "Play. Perform. Grow." },
-  { t: "Music & dance", i: Music4, desc: "Create. Express. Perform." },
-  { t: "Art & craft", i: Brush, desc: "Imagine. Create. Express." },
-  { t: "Transport", i: Bus, desc: "Safe and comfortable travel" },
-  { t: "CCTV safety", i: ShieldCheck, desc: "Safety and supervision" },
+  { t: "Smart Classrooms", i: MonitorSmartphone, desc: "Technology and digital learning", img: "https://res.cloudinary.com/zvlxacfu/image/upload/v1789721874/46350052-cf5a-4f97-9418-63ffba3e0a82.jpg" },
+  { t: "Computer Lab", i: Cpu, desc: "Technology and digital learning", img: "https://res.cloudinary.com/zvlxacfu/image/upload/v1789721749/b27b094a-574e-400c-8e5a-a82e72e2659a.jpg" },
+  { t: "Science Lab", i: FlaskConical, desc: "Explore. Experiment. Discover.", img: "https://res.cloudinary.com/zvlxacfu/image/upload/v1789721650/018f985b-e388-4d7a-960d-5f86cbc654ba.jpg" },
+  { t: "Mathematics Lab", i: Sigma, desc: "Building logical thinking", img: "https://res.cloudinary.com/zvlxacfu/image/upload/v1789721660/0760c2d0-3b22-4d8b-9344-81fd69cdb0ca.jpg" },
+  { t: "Library", i: Library, desc: "Read. Explore. Imagine.", img: "https://res.cloudinary.com/zvlxacfu/image/upload/v1789721628/beb66231-f5a0-4b29-b015-50b4d21ad472.jpg" },
+  { t: "Sports", i: Trophy, desc: "Play. Perform. Grow.", img: "https://res.cloudinary.com/zvlxacfu/image/upload/v1789721589/0cc0ebc7-fccd-40f8-a725-056b18cf22f1.jpg" },
+  { t: "Music & Dance", i: Music4, desc: "Create. Express. Perform.", img: "https://res.cloudinary.com/zvlxacfu/image/upload/v1789721383/a480af31-55a2-4156-8aec-980312b407d4.jpg" },
+  { t: "Art & Craft", i: Brush, desc: "Imagine. Create. Express.", img: "https://res.cloudinary.com/zvlxacfu/image/upload/v1789721355/4d483dff-c47f-4f00-ab1c-ba5481ca4086.jpg" },
+  { t: "Transport", i: Bus, desc: "Safe and comfortable travel", img: "https://res.cloudinary.com/zvlxacfu/image/upload/v1789721348/f13286f8-0c33-4d83-9e1e-3b992a373981.jpg" },
 ];
 
 export function Facilities() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const activeFacility = FACILITIES[activeIndex];
+
+  // Auto-progression logic
+  useEffect(() => {
+    if (isHovered) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % FACILITIES.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [isHovered]);
+
+  const imageVariants = {
+    enter: { opacity: 0, scale: 1.04 },
+    center: {
+      opacity: 1,
+      scale: [1.04, 1.0, 1.035],
+      transition: {
+        opacity: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+        scale: { times: [0, 0.16, 1], duration: 5, ease: ["easeOut", "linear"] },
+      },
+    },
+    exit: { opacity: 0, scale: 1.05, transition: { duration: 0.8, ease: "easeOut" } },
+  };
 
   return (
     <section id="facilities" className="scroll-mt-20 bg-background py-20 sm:py-28 overflow-hidden">
@@ -626,41 +743,49 @@ export function Facilities() {
           />
         </motion.div>
 
-        <div className="mt-16 flex flex-col lg:flex-row gap-12 lg:gap-20">
-          {/* Main Campus Image (Left/Center) */}
+        {/* DESKTOP TWO-COLUMN LAYOUT */}
+        <div 
+          className="mt-16 hidden lg:flex gap-12 lg:gap-16"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* Main Campus Image (Left) */}
           <motion.div
-            initial={{ opacity: 0, clipPath: "inset(0 12% 0 0)" }}
-            whileInView={{ opacity: 1, clipPath: "inset(0 0 0 0)" }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-            className="w-full lg:w-[55%] relative"
+            transition={{ duration: 1.0, ease: "easeOut", delay: 0.1 }}
+            className="w-[58%] relative"
           >
-            <div className="relative overflow-hidden rounded-[24px] border border-border shadow-lg group">
-              <motion.img
-                key={`campus-img-${activeIndex}`} // Trigger re-render ping
-                initial={{ scale: 1.0 }}
-                animate={{ scale: [1.02, 1.0] }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                src="https://res.cloudinary.com/zvlxacfu/image/upload/v1788824309/e743774b-9288-4d86-b7c9-0f49e2d3cc46.jpg"
-                alt="Shandilya Public School Campus"
-                className="aspect-video lg:aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
-              />
+            <div className="relative overflow-hidden rounded-[24px] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] aspect-[4/3] bg-muted/30">
+              <AnimatePresence mode="sync">
+                <motion.img
+                  key={activeFacility.img}
+                  variants={imageVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  src={activeFacility.img}
+                  alt={activeFacility.t}
+                  className="absolute inset-0 size-full object-cover"
+                />
+              </AnimatePresence>
 
-              {/* Contextual Overlay Label */}
-              <div className="absolute bottom-6 left-6 right-6 flex items-end">
+              {/* Premium Contextual Overlay Card */}
+              <div className="absolute bottom-6 left-6 z-10 pointer-events-none">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeFacility.t}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="inline-flex flex-col rounded-xl bg-black/60 backdrop-blur-md border border-white/10 px-5 py-3 shadow-xl"
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="inline-flex flex-col rounded-[16px] bg-[#3a1c1d]/85 backdrop-blur-md border border-white/10 px-6 py-4 shadow-xl"
                   >
-                    <span className="text-xs font-bold tracking-wider text-[#D4A94F] uppercase">
+                    <span className="text-[10px] font-bold tracking-widest text-[#D4A94F] uppercase mb-1">
                       {activeFacility.t}
                     </span>
-                    <span className="mt-1 text-sm text-white/90">{activeFacility.desc}</span>
+                    <span className="text-[14px] text-white/95 font-medium">{activeFacility.desc}</span>
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -668,19 +793,19 @@ export function Facilities() {
           </motion.div>
 
           {/* Interactive Navigation List (Right) */}
-          <div className="w-full lg:w-[45%] flex flex-col justify-center">
+          <div className="w-[42%] flex flex-col justify-center">
             <motion.div
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-100px" }}
               variants={{
                 hidden: {},
-                show: { transition: { staggerChildren: 0.05, delayChildren: 0.5 } },
+                show: { transition: { staggerChildren: 0.05, delayChildren: 0.3 } },
               }}
-              className="relative flex flex-col gap-1"
+              className="relative flex flex-col gap-1.5"
             >
-              {/* Optional Progress Line */}
-              <div className="absolute left-6 top-4 bottom-4 w-[1px] bg-border hidden sm:block" />
+              {/* Vertical connecting line */}
+              <div className="absolute left-[38px] top-6 bottom-6 w-[1px] bg-border/60 -z-10" />
 
               {FACILITIES.map((f, idx) => {
                 const isActive = activeIndex === idx;
@@ -690,49 +815,73 @@ export function Facilities() {
                   <motion.button
                     key={f.t}
                     variants={{
-                      hidden: { opacity: 0, x: -10 },
+                      hidden: { opacity: 0, x: 20 },
                       show: { opacity: 1, x: 0 },
                     }}
                     onMouseEnter={() => setActiveIndex(idx)}
+                    onClick={() => setActiveIndex(idx)}
                     onFocus={() => setActiveIndex(idx)}
-                    className="group relative flex w-full items-center gap-4 rounded-xl px-4 py-3 text-left transition-all duration-300 focus:outline-none"
+                    className="group relative flex w-full items-center rounded-xl px-4 py-3.5 text-left transition-all duration-300 focus:outline-none cursor-pointer"
                   >
                     {/* Active State Background/Border */}
                     <div
-                      className={`absolute inset-0 rounded-xl border transition-all duration-300 ${
+                      className={`absolute inset-0 rounded-[14px] border transition-all duration-500 ${
                         isActive
-                          ? "border-[#D4A94F]/30 bg-[#D4A94F]/5 shadow-[0_0_15px_rgba(212,169,79,0.05)]"
-                          : "border-transparent hover:bg-muted/50"
+                          ? "border-[#D4A94F]/40 bg-[#fbf9f6] shadow-[0_4px_20px_-10px_rgba(212,169,79,0.2)]"
+                          : "border-transparent hover:bg-muted/40"
                       }`}
                     />
 
-                    {/* Active Line Indicator */}
+                    {/* Active Edge Accent Line */}
                     <div
-                      className={`absolute left-0 h-1/2 w-1 rounded-r-full bg-[#D4A94F] transition-all duration-300 ${
+                      className={`absolute left-0 top-1/2 -translate-y-1/2 h-1/2 w-[3px] rounded-r-full bg-[#D4A94F] transition-all duration-500 origin-center ${
                         isActive ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"
                       }`}
                     />
 
+                    {/* Active Progress Bar (Timer) */}
+                    {isActive && !isHovered && (
+                      <motion.div
+                        className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full bg-[#D4A94F]/20 overflow-hidden"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2 }}
+                      >
+                        <motion.div 
+                          className="h-full bg-[#D4A94F]"
+                          initial={{ width: "0%" }}
+                          animate={{ width: "100%" }}
+                          transition={{ duration: 4.5, ease: "linear" }}
+                          key={`progress-${activeIndex}`}
+                        />
+                      </motion.div>
+                    )}
+
                     {/* Number & Icon */}
                     <div
-                      className={`relative z-10 flex shrink-0 items-center gap-4 transition-colors duration-300 ${
+                      className={`relative z-10 flex shrink-0 items-center gap-5 transition-colors duration-400 ${
                         isActive
                           ? "text-[#D4A94F]"
-                          : "text-muted-foreground group-hover:text-foreground"
+                          : "text-foreground/40 group-hover:text-foreground/70"
                       }`}
                     >
-                      <span className="w-5 text-sm font-medium opacity-60 font-mono hidden sm:block">
+                      <span className="w-6 text-[13px] font-semibold tracking-wider font-mono">
                         {num}
                       </span>
-                      <f.i className="size-5" strokeWidth={isActive ? 2.5 : 2} />
+                      <motion.div
+                         animate={isActive ? { scale: 1.1, rotate: [0, -5, 5, 0] } : { scale: 1, rotate: 0 }}
+                         transition={{ duration: 0.5 }}
+                      >
+                        <f.i className="size-[22px]" strokeWidth={isActive ? 2.5 : 2} />
+                      </motion.div>
                     </div>
 
                     {/* Text */}
                     <span
-                      className={`relative z-10 text-base font-medium transition-all duration-300 ${
+                      className={`relative z-10 ml-5 text-[15px] font-semibold transition-all duration-400 ${
                         isActive
-                          ? "translate-x-2 text-[#D4A94F]"
-                          : "text-foreground group-hover:translate-x-1"
+                          ? "translate-x-1 text-foreground"
+                          : "text-foreground/70 group-hover:translate-x-1"
                       }`}
                     >
                       {f.t}
@@ -743,6 +892,85 @@ export function Facilities() {
             </motion.div>
           </div>
         </div>
+
+        {/* MOBILE LAYOUT */}
+        <div 
+          className="mt-12 flex flex-col lg:hidden"
+          onTouchStart={() => setIsHovered(true)}
+          onTouchEnd={() => setIsHovered(false)}
+        >
+          {/* Main Campus Image (Mobile) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full relative overflow-hidden rounded-[20px] shadow-md aspect-square sm:aspect-[4/3] bg-muted/30"
+          >
+            <AnimatePresence mode="sync">
+              <motion.img
+                key={activeFacility.img}
+                variants={imageVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                src={activeFacility.img}
+                alt={activeFacility.t}
+                className="absolute inset-0 size-full object-cover"
+              />
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Active Facility Information (Below Image) */}
+          <div className="mt-6 flex flex-col items-center text-center px-4 h-[80px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeFacility.t}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-col items-center"
+              >
+                <div className="flex items-center gap-2 text-[#D4A94F] mb-2">
+                   <activeFacility.i className="size-4" />
+                   <h3 className="font-serif text-[18px] font-semibold">{activeFacility.t}</h3>
+                </div>
+                <p className="text-[14px] text-foreground/80 leading-relaxed max-w-[280px]">
+                  {activeFacility.desc}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Horizontal Swipeable Chips */}
+          <div className="mt-4 -mx-5 px-5 overflow-x-auto snap-x snap-mandatory hide-scrollbar">
+            <div className="flex gap-3 pb-4 min-w-max">
+              {FACILITIES.map((f, idx) => {
+                const isActive = activeIndex === idx;
+                return (
+                  <button
+                    key={f.t}
+                    onClick={() => setActiveIndex(idx)}
+                    className={`snap-center shrink-0 rounded-full px-5 py-2.5 text-[13px] font-semibold transition-all duration-300 border shadow-sm ${
+                      isActive 
+                        ? "bg-[#D4A94F] border-[#D4A94F] text-white shadow-md scale-105" 
+                        : "bg-white border-border text-foreground/70 active:scale-95"
+                    }`}
+                  >
+                    {f.t}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          {/* Custom style to hide scrollbar but keep functionality */}
+          <style dangerouslySetInnerHTML={{__html: `
+            .hide-scrollbar::-webkit-scrollbar { display: none; }
+            .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+          `}} />
+        </div>
+
       </div>
     </section>
   );
@@ -784,7 +1012,7 @@ export function LifeAtSchool() {
 
 export function AdmissionsCta() {
   return (
-    <section className="relative isolate overflow-hidden py-20 sm:py-28">
+    <section className="relative isolate overflow-hidden min-h-[auto] md:min-h-[480px] flex flex-col justify-center py-[55px] sm:py-[70px]">
       {/* Looping Background Video */}
       <video
         autoPlay
@@ -803,18 +1031,18 @@ export function AdmissionsCta() {
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-primary/85" />
 
       {/* Existing Content */}
-      <div className="relative z-10 mx-auto max-w-3xl px-5 text-center sm:px-6">
+      <div className="relative z-10 mx-auto max-w-3xl px-5 text-center sm:px-6 w-full">
         <motion.h2
           {...fadeUp}
           className="font-serif text-3xl leading-tight font-semibold text-primary-foreground sm:text-5xl"
         >
           Begin your child's journey with us
         </motion.h2>
-        <motion.p {...fadeUp} className="mt-6 text-base leading-relaxed text-primary-foreground/80">
+        <motion.p {...fadeUp} className="mt-4 text-base leading-relaxed text-primary-foreground/80">
           Submit an admission enquiry and our admissions team will contact you to answer your
           questions, explain the process and arrange a visit to the school.
         </motion.p>
-        <motion.div {...fadeUp} className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+        <motion.div {...fadeUp} className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
           <Link
             to="/admissions/apply"
             className="rounded-full bg-background px-8 py-4 text-sm font-bold tracking-[0.12em] text-foreground uppercase transition hover:bg-background/90"
@@ -935,7 +1163,9 @@ export function Testimonials() {
           Shandilya family and would like to share your experience, we would love to hear from you.
         </p>
         <a
-          href={`mailto:${SCHOOL.email}?subject=${encodeURIComponent("Testimonial for Shandilya Public School")}`}
+          href="https://jsdl.in/DT-60EIEUM6MY2"
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-8 inline-block rounded-full border border-foreground/20 px-7 py-3.5 text-sm font-bold tracking-[0.12em] text-foreground uppercase transition hover:bg-card"
         >
           Share your experience
