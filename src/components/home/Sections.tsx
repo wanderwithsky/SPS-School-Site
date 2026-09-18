@@ -456,7 +456,7 @@ export function Journey() {
           {/* Zone 2: Roadmap Interface */}
           <motion.div
             style={{ y: roadmapY }}
-            className="flex-1 w-full max-w-7xl mx-auto flex flex-col lg:flex-row px-5 sm:px-6 lg:px-8 gap-8 sm:gap-12 lg:gap-20 mt-6 lg:mt-8"
+            className="flex-1 w-full max-w-7xl mx-auto flex flex-col lg:flex-row px-5 sm:px-6 lg:px-8 gap-6 sm:gap-10 lg:gap-16 mt-4 lg:mt-6"
           >
             {/* Left Side: Progress Roadmap */}
             <div className="relative flex flex-col w-full lg:w-1/3 justify-center border-l-2 border-white/10 pl-5 sm:pl-8 py-2 shrink-0">
@@ -466,7 +466,7 @@ export function Journey() {
                 style={{ height: `${((activeIndex + 1) / ACADEMIC_JOURNEY.length) * 100}%` }}
               />
 
-              <div className="flex flex-col gap-6 sm:gap-8 lg:gap-12">
+              <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8">
                 {ACADEMIC_JOURNEY.map((stage, idx) => {
                   const isActive = idx === activeIndex;
                   const dist = Math.abs(idx - activeIndex);
@@ -475,7 +475,7 @@ export function Journey() {
                     <div key={stage.id} className="relative py-1">
                       {/* Node Dot */}
                       <div
-                        className={`absolute -left-[26px] sm:-left-[39px] top-1/2 -translate-y-1/2 size-2.5 sm:size-3.5 rounded-full border-2 transition-all duration-500 ${
+                        className={`absolute -left-[26px] sm:-left-[39px] top-1/2 -translate-y-1/2 size-2 sm:size-2.5 rounded-full border-2 transition-all duration-500 ${
                           isActive
                             ? "border-[#D4A94F] bg-[#D4A94F] scale-[1.3] shadow-[0_0_12px_rgba(212,169,79,0.5)]"
                             : "border-white/20 bg-foreground"
@@ -483,7 +483,7 @@ export function Journey() {
                       />
 
                       <h3
-                        className="font-serif text-lg sm:text-xl lg:text-2xl text-[#fdfdfd] transition-all duration-500 origin-left"
+                        className="font-serif text-base sm:text-lg lg:text-xl text-[#fdfdfd] transition-all duration-500 origin-left"
                         style={{
                           transform: isActive
                             ? "scale(1)"
@@ -514,13 +514,13 @@ export function Journey() {
                     className="flex flex-col gap-5 sm:gap-6 w-full max-w-xl"
                   >
                     <div className="flex flex-col">
-                      <span className="text-[11px] sm:text-sm font-semibold tracking-widest text-[#D4A94F] uppercase mb-1 drop-shadow-sm">
+                      <span className="text-[10px] sm:text-[11px] font-semibold tracking-widest text-[#D4A94F] uppercase mb-1 drop-shadow-sm">
                         {activeStage.classes}
                       </span>
-                      <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-white mb-2 sm:mb-3">
+                      <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl text-white mb-1 sm:mb-2">
                         {activeStage.title}
                       </h2>
-                      <p className="text-sm sm:text-base text-white leading-relaxed">
+                      <p className="text-xs sm:text-sm text-white leading-relaxed">
                         {activeStage.desc}
                       </p>
                     </div>
@@ -530,7 +530,7 @@ export function Journey() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.35 }}
-                      className="relative mt-2 overflow-hidden rounded-[18px] sm:rounded-[22px] shadow-xl border border-white/10 w-full max-w-[560px] aspect-[4/3] sm:aspect-[3/2] lg:h-[340px]"
+                      className="relative mt-2 overflow-hidden rounded-[16px] sm:rounded-[20px] shadow-xl border border-white/10 w-full max-w-[480px] aspect-[4/3] sm:aspect-[3/2] lg:h-[280px]"
                     >
                       <img
                         src={activeStage.img}
@@ -551,30 +551,30 @@ export function Journey() {
                     className="flex flex-col gap-6 sm:gap-8 w-full max-w-xl"
                   >
                     <div className="flex flex-col">
-                      <span className="text-[11px] sm:text-sm font-semibold tracking-widest text-[#D4A94F] uppercase mb-1 drop-shadow-sm">
+                      <span className="text-[10px] sm:text-[11px] font-semibold tracking-widest text-[#D4A94F] uppercase mb-1 drop-shadow-sm">
                         CHOOSE YOUR PATH
                       </span>
-                      <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-white mb-2 sm:mb-3">
+                      <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl text-white mb-1 sm:mb-2">
                         Senior Secondary Streams
                       </h2>
-                      <p className="text-sm sm:text-base text-white leading-relaxed">
+                      <p className="text-xs sm:text-sm text-white leading-relaxed">
                         Specialized pathways designed to build deep expertise and prepare students for
                         their career goals.
                       </p>
                     </div>
 
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-3">
                       {activeStage.streams?.map((stream) => (
                         <div
                           key={stream.id}
-                          className="p-4 sm:p-5 rounded-2xl border border-white/10 bg-white/5"
+                          className="p-3 sm:p-4 rounded-[14px] border border-white/10 bg-white/5"
                         >
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <h4 className="font-serif text-lg sm:text-xl text-[#D4A94F]">
+                            <h4 className="font-serif text-base sm:text-lg text-[#D4A94F]">
                               {stream.name}
                             </h4>
                             {stream.options.length > 0 && (
-                              <div className="flex gap-2 text-xs sm:text-sm text-white">
+                              <div className="flex gap-2 text-[10px] sm:text-xs text-white">
                                 {stream.options.map((opt) => (
                                   <span key={opt} className="px-2 py-1 bg-white/10 rounded-md">
                                     {opt}
@@ -583,7 +583,7 @@ export function Journey() {
                               </div>
                             )}
                           </div>
-                          <p className="mt-2 text-sm text-white">{stream.desc}</p>
+                          <p className="mt-1.5 text-xs sm:text-sm text-white">{stream.desc}</p>
                         </div>
                       ))}
                     </div>
